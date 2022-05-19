@@ -78,7 +78,7 @@ namespace DesktopClient.ViewModel
 
         private void LoginSuccess(string login, string password)
         {
-            if (login == "Комендант" && password == "123")
+            if (login == "1" && password == "1")
             {
                 _navigationService.NavigateTo("ChiefView");
             }

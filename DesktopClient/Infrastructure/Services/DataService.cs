@@ -1,188 +1,145 @@
 ﻿using DesktopClient.Infrastructure.Interfaces;
-using Newtonsoft.Json;
+using Server;
 using Server.Models;
-using System.Collections.ObjectModel;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Net.Http.Headers;
-using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DesktopClient.Infrastructure.Services
 {
     public class DataService : IDataService
     {
-        //private readonly DataContext _data = new DataContext();
-        private readonly string ServerUrl = "https://localhost:5001/";
-        private static HttpClient ApiClient { get; set; }
+        private readonly DataContext _data = new DataContext();
+        //private readonly string ServerUrl = "https://localhost:5001/";
+        //private static HttpClient ApiClient { get; set; }
 
         public DataService()
         {
-            InitApi();
         }
 
-        private void InitApi()
-        {
-            ApiClient = new HttpClient();
-            ApiClient.DefaultRequestHeaders.Accept.Clear();
-            ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
-        public async Task<ObservableCollection<Department>> GetDepartments()
+        public ObservableCollection<Department> GetDepartments()
         {
             ObservableCollection<Department> departments = new ObservableCollection<Department>();
 
-            try
+            //departments = _data.Departments.Local.ToObservableCollection();
+
+            List<Department> deps = _data.Departments.ToList();
+
+            for (int i = 0; i < deps.Count; i++)
             {
-                using (HttpResponseMessage responseMessage = await ApiClient.GetAsync("https://localhost:5001/api/departments/"))
-                {
-                    if(responseMessage.IsSuccessStatusCode)
-                    {
-                        var dataObjects = responseMessage.Content.ReadAsAsync<IEnumerable<Department>>().Result;
-                        foreach (var dataObject in dataObjects)
-                        {
-                            departments.Add(new Department()
-                            {
-                                Id = dataObject.Id,
-                                Name = dataObject.Name
-                            });
-                        }
-
-                        return departments;
-                    }
-                }
-                    //using (HttpClient httpClient = new HttpClient())
-                    //{
-                    //HttpResponseMessage response = await client.GetAsync(ServerUrl);
-
-                    //if (response.IsSuccessStatusCode)
-                    //{
-                    //    var dataObjects = JsonConvert.DeserializeObject<Department>(response);
-                    //    foreach (var d in dataObjects)
-                    //    {
-
-                    //    }
-                    //}
-
-                    //string resources = await httpClient.GetStringAsync("https://localhost:5001/api/departments/");
-                    //dynamic data = JsonConvert.DeserializeObject<Department>(resources);
-
-                    //for (int i = 0; i < 2; i++)
-                    //{
-                    //    departments.Add(new Department()
-                    //    {
-                    //        //Id = data.Id,
-                    //        Name = "33"
-                    //    }); ;
-                    //}
-                    //string resources2 = await ApiClient.GetStringAsync("https://localhost:5000/api/departments/");
-                    //string resources3 = await ApiClient.GetStringAsync("https://localhost:5001/api/departments/");
-
-                    //departments.Add(new Department() { Id = 1, Name = "Super" });
-                    //departments.Add(new Department() { Id = 2, Name = "Puper" });
-
-                    //foreach (var loaddata in data)
-                    //{
-                    //    departments.Add(new Department()
-                    //    {
-                    //        Id = loaddata.Id,
-                    //        Name = loaddata.Name
-                    //    });
-                    //}
-
-                    //departments.RemoveAt(0);
-
-                    return departments;
-                //}
+                departments.Add(deps[i]);
             }
-            catch (System.Exception)
-            {
-                throw;
-            }
-            //    //ObservableCollection<Department> departments = new ObservableCollection<Department>();
 
-            //    //departments.Add(new Department() { Name = "GG" });
-            //    //departments.Add(new Department() { Name = "WP" });
+            //for (int i = 0; i < departments.Count; i++)
+            //{
+            //    departments.Add(departments[i]);
+            //}
 
-            //    //return departments;
-            //    //return new ObservableCollection<Department>(_data.Departments);
-            //return departments;
+            return departments;
+
+            //return _data.Departments.Local.ToObservableCollection();           
         }
 
-
-            //public async Task<ObservableCollection<Department>> GetDepartments()
-            //{
-            //    ObservableCollection<Department> departments = new ObservableCollection<Department>();
-
-            //    string resources = await client.GetStringAsync("https://localhost:5001/api/departments/");
-            //    dynamic data = JsonConvert.DeserializeObject(resources);
-
-            //if(data==null)
-            //    departments.Add(new Department()
-            //    {
-            //        Name = "Null"
-            //    });
-
-            //foreach (var item in data)
-            //{
-            //    departments.Add(new Department()
-            //    {
-            //        Id = data.Id,
-            //        Name = data.Name
-            //    });
-            //}
-
-            //using (HttpClient httpClient = new HttpClient())
-            //{
-            //string resources = await httpClient.GetStringAsync("https://localhost:5001/api/departments/");
-            //dynamic data = JsonConvert.DeserializeObject(resources);
-
-            //foreach (var loaddata in data)
-            //{
-            //    departments.Add(new Department()
-            //    {
-            //        Id = loaddata.Id,
-            //        Name = loaddata.Name
-            //    });
-            //}
-
-            //departments.Add(new Department() { Id = 1, Name = "GG" });
-            //departments.Add(new Department() { Id = 2, Name = "WP" });
-
-            //foreach (var loaddata in data)
-            //{
-            //    departments.Add(new Department()
-            //    {
-            //        Id = loaddata.Id,
-            //        Name = loaddata.Name
-            //    });
-            //}
-
-            //departments.RemoveAt(0);
-
-            //return departments;
-            //}
-            //}
-
-            //public void AddDepartment(Department department)
-            //{
-            //    //_data.Departments.Add(department);
-            //}
-
-            //public void EditDepartment(Department department)
-            //{
-            //    //_data.Departments.Update(department);
-            //}
-
-
-            //public void DeleteDepartment(Department department)
-            //{
-            //    //_data.Departments.Remove(department);
-            //}
-
-            //public void Save()
-            //{
-            //    //_data.SaveChanges();
-            //}
+        public void AddDepartment(Department department)
+        {
+            _data.Departments.Add(department);
+            _data.SaveChanges();
         }
+
+        public void EditDepartment(Department department)
+        {
+            _data.Departments.Update(department);
+            _data.SaveChanges();
+        }
+
+        public void DeleteDepartment(Department department)
+        {
+            _data.Departments.Remove(department);
+            _data.SaveChanges();
+        }
+
+        public ObservableCollection<Place> GetPlaces()
+        {
+            ObservableCollection<Place> places = new ObservableCollection<Place>();
+
+            List<Place> pl = _data.Places.ToList();
+
+            for (int i = 0; i < pl.Count; i++)
+            {
+                places.Add(pl[i]);
+            }
+
+            return places;
+        }
+
+        public void AddPlace(Place place)
+        {
+            _data.Places.Add(place);
+            _data.SaveChanges();
+        }
+
+        public void EditPlace(Place place)
+        {
+            _data.Places.Update(place);
+            _data.SaveChanges();
+        }
+
+        public void DeletePlace(Place place)
+        {
+            _data.Places.Remove(place);
+            _data.SaveChanges();
+        }
+
+        public ObservableCollection<Status> GetStatuses()
+        {
+            ObservableCollection<Status> statuses = new ObservableCollection<Status>();
+
+            List<Status> st = _data.Statuses.ToList();
+
+            for (int i = 0; i < st.Count; i++)
+            {
+                statuses.Add(st[i]);
+            }
+
+            return statuses;
+        }
+
+        public void AddStatus(Status status)
+        {
+            _data.Statuses.Add(status);
+            _data.SaveChanges();
+        }
+
+        public void EditStatus(Status status)
+        {
+            _data.Statuses.Update(status);
+            _data.SaveChanges();
+        }
+
+        public void DeleteStatus(Status status)
+        {
+            _data.Statuses.Remove(status);
+            _data.SaveChanges();
+        }
+
+        public ObservableCollection<Asset> GetAssets()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AddAsset(Asset asset)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EditAsset(Asset asset)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteAsset(Asset asset)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

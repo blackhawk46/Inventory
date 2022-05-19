@@ -2,9 +2,86 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             DataContext="{Binding Source={StaticResource Locator}, Path=ChiefView}"
              mc:Ignorable="d" >
     <Grid>
-        <TextBlock Text="Assets" FontSize="48"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Border
+                Grid.Row="0"
+                Background="RoyalBlue">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                        Grid.Column="0"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="Имущество"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button 
+                        Style="{StaticResource MaterialDesignToolButton}"
+                        ToolTip="Добавить"
+                        Foreground="White"
+                        Margin="0 0 15 0"
+                        Command="{Binding AddAsset}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center" Cursor="Hand">
+                        <Button.Content>
+                            <iconPacks:PackIconMaterial
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                Kind="Plus"/>
+                        </Button.Content>
+                    </Button>
+                    <Button
+                                x:Name="EditButton"
+                                Style="{StaticResource MaterialDesignToolButton}"
+                                ToolTip="Редактировать"
+                                Foreground="White"
+                                Margin="0 0 15 0"
+                                Command="{Binding EditAsset}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center">
+                        <Button.Content>
+                            <iconPacks:PackIconMaterial
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        Kind="Pencil"/>
+                        </Button.Content>
+                    </Button>
+                    <Button
+                                x:Name="DeleteButton"
+                                Style="{StaticResource MaterialDesignToolButton}"
+                                ToolTip="Удалить"
+                                Foreground="White"
+                                Margin="0 0 15 0"
+                                Command="{Binding DeleteAsset}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center" Cursor="Hand">
+                        <Button.Content>
+                            <iconPacks:PackIconMaterial
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        Kind="TrashCan"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
     </Grid>
 </UserControl>

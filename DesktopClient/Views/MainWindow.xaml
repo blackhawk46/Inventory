@@ -4,19 +4,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         GlowBrush="RoyalBlue"
         ResizeMode="CanResizeWithGrip"
         TitleCharacterCasing="Normal"
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding Source={StaticResource Locator}, Path=MainView}"
-        Title="Инвентаризация">
-    
-    <mah:MetroWindow.Flyouts>
+        Title="Инвентаризация ФНС">
+
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Button Command="{Binding}" ToolTip="Информация">
+                <Button.Content>
+                    <iconPacks:PackIconEntypo
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        Kind="Info"/>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding}" ToolTip="Настройки">
+                <Button.Content>
+                    <iconPacks:PackIconEntypo
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        Kind="Cog"/>
+                </Button.Content>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+
+    <!--<mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl>
 
         </mah:FlyoutsControl>
-    </mah:MetroWindow.Flyouts>
+    </mah:MetroWindow.Flyouts>-->
 
     <Grid>
 

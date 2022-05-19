@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
-
-namespace DesktopClient.Views
+﻿namespace DesktopClient.Views
 {
-    public partial class AuthView : UserControl
+    public partial class AuthView
     {
         public AuthView()
         {

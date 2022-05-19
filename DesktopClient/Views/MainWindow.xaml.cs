@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace DesktopClient.Views
+﻿namespace DesktopClient.Views
 {
     public partial class MainWindow
     {
