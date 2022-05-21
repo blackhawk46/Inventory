@@ -11,16 +11,19 @@ namespace DesktopClient.ViewModel
 {
     public class ChiefViewModel : BaseViewModel
     {
-        public ChiefViewModel(IDialogService dialogService, IDataService dataService)
+        public ChiefViewModel(IDialogService dialogService, IDataService dataService, IFrameNavigationService navigationService)
         {
             InitCommands();
 
             _dataService = dataService;
             _dialogService = dialogService;
+            _navigationService = navigationService;
 
             Departments = _dataService.GetDepartments();
             Places = _dataService.GetPlaces();
             Statuses = _dataService.GetStatuses();
+            Employees = _dataService.GetEmployees();
+
             //Start();
         }
 
@@ -38,10 +41,6 @@ namespace DesktopClient.ViewModel
                 {
                     _dataService.AddDepartment(new Department() { Name = result });
                     Departments = _dataService.GetDepartments();
-                }
-                else
-                {
-                    await _dialogService.ShowMessage("Ошибка", "Введите наименование отдела");
                 }
             }, nameof(AddDepartment));
             EditDepartment = MakeCommand(async () =>
@@ -103,10 +102,6 @@ namespace DesktopClient.ViewModel
                     _dataService.AddPlace(new Place() { Name = result });
                     Places = _dataService.GetPlaces();
                 }
-                else
-                {
-                    await _dialogService.ShowMessage("Ошибка", "Введите наименование местоположения");
-                }
             }, nameof(AddPlace));
             EditPlace = MakeCommand(async () =>
             {
@@ -167,10 +162,6 @@ namespace DesktopClient.ViewModel
                     _dataService.AddStatus(new Status() { Name = result });
                     Statuses = _dataService.GetStatuses();
                 }
-                else
-                {
-                    await _dialogService.ShowMessage("Ошибка", "Введите наименование статуса");
-                }
             }, nameof(AddStatus));
             EditStatus = MakeCommand(async () =>
             {
@@ -217,6 +208,19 @@ namespace DesktopClient.ViewModel
                     await _dialogService.ShowMessage("Ошибка", "Выберите статус");
                 }
             }, nameof(DeleteStatus));
+
+            OpenAddEmployee = MakeCommand(() =>
+            {
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.EmployeeAdd = true;
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Departments = _dataService.GetDepartments();
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.empl = new Employee();
+                //_navigationService.NavigateTo("AddEmp");
+            }, nameof(OpenAddEmployee));
+
+            GoBack = MakeCommand(() =>
+            {
+                _navigationService.GoBack();
+            }, nameof(GoBack));
         }
 
         //public async Task Start()
@@ -233,6 +237,7 @@ namespace DesktopClient.ViewModel
 
         private readonly IDataService _dataService;
         private readonly IDialogService _dialogService;
+        private readonly IFrameNavigationService _navigationService;
         public ObservableCollection<Department> Departments
         {
             get => Get<ObservableCollection<Department>>();
@@ -281,6 +286,24 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
+        public ObservableCollection<Employee> Employees
+        {
+            get => Get<ObservableCollection<Employee>>();
+            set => Set(value);
+        }
+
+        public Employee SelectEmployee
+        {
+            get => Get<Employee>();
+            set => Set(value);
+        }
+
+        public Employee Employee
+        {
+            get => Get<Employee>();
+            set => Set(value);
+        }
+
         #endregion
 
         #region Commands
@@ -297,6 +320,11 @@ namespace DesktopClient.ViewModel
         public ICommand AddAsset { get; set; }
         public ICommand EditAsset { get; set; }
         public ICommand DeleteAsset { get; set; }
+        public ICommand AddEmployee { get; set; }
+        public ICommand EditEmployee { get; set; }
+        public ICommand DeleteEmployee { get; set; }
+        public ICommand OpenAddEmployee { get; set; }
+        public ICommand GoBack { get; set; }
 
         #endregion
     }

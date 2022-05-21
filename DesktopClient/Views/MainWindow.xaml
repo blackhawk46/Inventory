@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         GlowBrush="RoyalBlue"
         ResizeMode="CanResizeWithGrip"
@@ -15,7 +16,7 @@
 
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
-            <Button Command="{Binding}" ToolTip="Информация">
+            <Button Command="{Binding ShowInformation}" ToolTip="Информация">
                 <Button.Content>
                     <iconPacks:PackIconEntypo
                         VerticalAlignment="Stretch"
@@ -34,11 +35,154 @@
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
 
-    <!--<mah:MetroWindow.Flyouts>
+    <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl>
 
+            <mah:Flyout
+                Header="Информация"
+                FontFamily="Times New Roman" 
+                FontStyle="Italic"
+                IsModal="True"
+                Width="300"
+                Position="Left"
+                Theme="Adapt"
+                IsOpen="{Binding Information}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock
+                           TextWrapping="Wrap"
+                           Margin="12 8 0 0"
+                           FontSize="20"
+                           Style="{StaticResource MaterialDesignBody1TextBlock}">
+                        Разработано специально
+                        <LineBreak/>
+                        для ФНС
+                        </TextBlock>
+                        <TextBlock
+                        Margin="0 12 0 0"
+                        HorizontalAlignment="Center"
+                        FontSize="20"
+                        Style="{StaticResource MaterialDesignBody1TextBlock}">
+                        Телефон поддержки
+                        </TextBlock>
+                        <Label HorizontalAlignment="Center" Margin="0 2 0 0">
+                            <Label.Content>
+                                <iconPacks:PackIconMaterial
+                                Width="24"
+                                Height="24"
+                                Kind="Phone"/>
+                            </Label.Content>
+                        </Label>
+                        <TextBlock
+                        HorizontalAlignment="Center"
+                        TextWrapping="Wrap"
+                        FontSize="20"
+                        Margin="0 2 0 0"
+                        FontStyle="Oblique"
+                        Foreground="LightSeaGreen"
+                        Style="{StaticResource MaterialDesignBody1TextBlock}">
+                        8(3012)44-06-08
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </mah:Flyout>
+
+            <mah:Flyout
+                Header="Добавить сотрудника"
+                FontFamily="Times New Roman" 
+                FontStyle="Italic"
+                IsModal="True"
+                Width="350"
+                Position="Right"
+                Theme="Adapt"
+                IsOpen="{Binding EmployeeAdd}">
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding empl.FirstName, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Фамилия"/>
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding empl.LastName, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Имя"/>
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding empl.MiddleName, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Отчество"/>
+
+                    <TextBlock Text="Отдел:" Margin="12 12 0 0" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+
+                    <ComboBox ItemsSource="{Binding Departments}" Margin="12" Style="{StaticResource MaterialDesignComboBox}" SelectedItem="{Binding empl.Department, Mode=TwoWay}"
+                         FontSize="16" VerticalContentAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Width="300">
+
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+
+                    </ComboBox>
+
+                    <StackPanel Margin="12 18 0 0" Orientation="Horizontal">
+
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding AddEmp}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="18">
+                                        Добавить
+                                        <LineBreak/>
+                                        Сотрудника
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Plus"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding CancelAddEmp}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="16">
+                                        Отмена
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Cancel"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        
+                    </StackPanel>
+
+                </StackPanel>
+
+            </mah:Flyout>
+
         </mah:FlyoutsControl>
-    </mah:MetroWindow.Flyouts>-->
+    </mah:MetroWindow.Flyouts>
 
     <Grid>
 

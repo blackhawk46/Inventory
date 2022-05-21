@@ -21,5 +21,9 @@ namespace DesktopClient.Infrastructure.Interfaces
         void AddAsset(Asset asset);
         void EditAsset(Asset asset);
         void DeleteAsset(Asset asset);
+        ObservableCollection<Employee> GetEmployees();
+        void AddEmployee(Employee employee);
+        void EditEmployee(Employee employee);
+        void DeleteEmployee(Employee employee);
     }
 }

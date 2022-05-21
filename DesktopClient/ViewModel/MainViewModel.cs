@@ -4,23 +4,27 @@ using DesktopClient.Views;
 using DesktopClient.Infrastructure.Interfaces;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Views;
+using Server.Models;
+using System.Collections.ObjectModel;
 
 namespace DesktopClient.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IDialogService dialogService, IFrameNavigationService navigationService)
+        public MainViewModel(IDialogService dialogService, IFrameNavigationService navigationService, IDataService dataService)
         {
             InitCommands();
 
             _dialogService = dialogService;
             _navigationService = navigationService;
+            _dataService = dataService;
         }
 
         #region Fields
 
         private readonly IDialogService _dialogService;
         private readonly IFrameNavigationService _navigationService;
+        private readonly IDataService _dataService;
 
         #endregion
 
@@ -32,11 +36,38 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
+        public bool Information
+        {
+            get => Get(false);
+            set => Set(value);
+        }
+
+        public bool EmployeeAdd
+        {
+            get => Get(false);
+            set => Set(value);
+        }
+
+        public Employee empl
+        {
+            get => Get<Employee>();
+            set => Set(value);
+        }
+
+        public ObservableCollection<Department> Departments
+        {
+            get => Get<ObservableCollection<Department>>();
+            set => Set(value);
+        }
+
         #endregion
 
         #region Commands
 
         public ICommand AuthorizationCommand { get; set; }
+        public ICommand ShowInformation { get; set; }
+        public ICommand CancelAddEmp { get; set; }
+        public ICommand AddEmp { get; set; }
 
         #endregion
 
@@ -48,6 +79,33 @@ namespace DesktopClient.ViewModel
             {
                 Authorization((PasswordBox)pb);
             }, nameof(AuthorizationCommand));
+            ShowInformation = MakeCommand(() =>
+            {
+                Information = true;
+            }, nameof(ShowInformation));
+            AddEmp = MakeCommand(async () =>
+            {
+                if (empl.Department != null && !string.IsNullOrEmpty(empl.FirstName) && !string.IsNullOrEmpty(empl.LastName))
+                {
+                    Employee item = new Employee() { FirstName = empl.FirstName, LastName = empl.LastName, MiddleName = empl.MiddleName, Department = empl.Department};
+                    _dataService.AddEmployee(item);
+                    EmployeeAdd = false;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).ChiefView.Employees = _dataService.GetEmployees();
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
+            }, nameof(AddEmp));
+            CancelAddEmp = MakeCommand(() =>
+            {
+                EmployeeAdd = false;
+            }, nameof(CancelAddEmp));
+        }
+
+        public void empempty()
+        {
+            //empl.FirstName = string.Empty; empl.LastName = string.Empty; empl.MiddleName = string.Empty;
+            //empl = new Employee();
+            //dep = new Department();
         }
 
         private void Authorization(PasswordBox passwordBox)

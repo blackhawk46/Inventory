@@ -141,5 +141,37 @@ namespace DesktopClient.Infrastructure.Services
         {
             throw new System.NotImplementedException();
         }
+
+        public ObservableCollection<Employee> GetEmployees()
+        {
+            ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
+
+            List<Employee> emp = _data.Employees.ToList();
+
+            for (int i = 0; i < emp.Count; i++)
+            {
+                employees.Add(emp[i]);
+            }
+
+            return employees;
+        }
+
+        public void AddEmployee(Employee employee)
+        {
+            _data.Employees.Add(employee);
+            _data.SaveChanges();
+        }
+
+        public void EditEmployee(Employee employee)
+        {
+            _data.Employees.Update(employee);
+            _data.SaveChanges();
+        }
+
+        public void DeleteEmployee(Employee employee)
+        {
+            _data.Employees.Remove(employee);
+            _data.SaveChanges();
+        }
     }
 }
