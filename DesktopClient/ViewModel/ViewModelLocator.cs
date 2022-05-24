@@ -30,7 +30,6 @@ namespace DesktopClient.ViewModel
             navigationService.Configure("ChiefView", new Uri("../Views/ChiefView.xaml", UriKind.Relative));
             navigationService.Configure("EngineerView", new Uri("../Views/EngineerView.xaml", UriKind.Relative));
             navigationService.Configure("EmployeeView", new Uri("../Views/EmployeeView.xaml", UriKind.Relative));
-            navigationService.Configure("AddEmp", new Uri("../Views/ChiefMenu/EmployeeAdd.xaml", UriKind.Relative));
 
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
         }

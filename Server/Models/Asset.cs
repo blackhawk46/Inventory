@@ -7,7 +7,20 @@ namespace Server.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
         public string SerialNumber { get; set; } 
+        [Required]
+        public string InventoryNumber { get; set; }
+        [Required]
+        public Status Status { get; set; }
+        [Required]
+        public Place Place { get; set; }
+        [Required]
+        public Employee Employee { get; set; }
+        [Required]
+        public AssetType AssetType { get; set; }
+        [Required]
+        public DateTime DateCreate { get; set; }
+        public DateTime Date { get; set; }
+        public string Description { get; set; } 
     }
 }

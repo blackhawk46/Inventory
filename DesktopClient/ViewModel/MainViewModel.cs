@@ -48,6 +48,12 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
+        public bool EmployeeEdit
+        {
+            get => Get(false);
+            set => Set(value);
+        }
+
         public Employee empl
         {
             get => Get<Employee>();
@@ -60,6 +66,24 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
+        public bool AssetAdd
+        {
+            get => Get(false);
+            set => Set(value);
+        }
+
+        public bool AssetEdit
+        {
+            get => Get(false);
+            set => Set(value);
+        }
+
+        public Asset asst
+        {
+            get => Get<Asset>();
+            set => Set(value);
+        }
+
         #endregion
 
         #region Commands
@@ -68,6 +92,8 @@ namespace DesktopClient.ViewModel
         public ICommand ShowInformation { get; set; }
         public ICommand CancelAddEmp { get; set; }
         public ICommand AddEmp { get; set; }
+        public ICommand CancelEditEmp { get; set; }
+        public ICommand EditEmp { get; set; }
 
         #endregion
 
@@ -99,13 +125,21 @@ namespace DesktopClient.ViewModel
             {
                 EmployeeAdd = false;
             }, nameof(CancelAddEmp));
-        }
-
-        public void empempty()
-        {
-            //empl.FirstName = string.Empty; empl.LastName = string.Empty; empl.MiddleName = string.Empty;
-            //empl = new Employee();
-            //dep = new Department();
+            EditEmp = MakeCommand(async () =>
+            {
+                if (empl != null)
+                {
+                    _dataService.EditEmployee(empl);
+                    EmployeeEdit = false;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).ChiefView.Employees = _dataService.GetEmployees();
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
+            }, nameof(EditEmp));
+            CancelEditEmp = MakeCommand(() =>
+            {
+                EmployeeEdit = false;
+            }, nameof(CancelEditEmp));
         }
 
         private void Authorization(PasswordBox passwordBox)

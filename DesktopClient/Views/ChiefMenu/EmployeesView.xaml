@@ -47,7 +47,7 @@
                                 Kind="Plus"/>
                         </Button.Content>
                     </Button>
-                    <!--<Button
+                    <Button
                                 x:Name="EditButton"
                                 Style="{StaticResource MaterialDesignToolButton}"
                                 ToolTip="Редактировать"
@@ -78,7 +78,7 @@
                                         HorizontalAlignment="Stretch"
                                         Kind="TrashCan"/>
                         </Button.Content>
-                    </Button>-->
+                    </Button>
                 </StackPanel>
             </Grid>
         </Border>

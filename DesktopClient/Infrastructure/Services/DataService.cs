@@ -124,22 +124,34 @@ namespace DesktopClient.Infrastructure.Services
 
         public ObservableCollection<Asset> GetAssets()
         {
-            throw new System.NotImplementedException();
+            ObservableCollection<Asset> assets = new ObservableCollection<Asset>();
+
+            List<Asset> ass = _data.Assets.ToList();
+
+            for (int i = 0; i < ass.Count; i++)
+            {
+                assets.Add(ass[i]);
+            }
+
+            return assets;
         }
 
         public void AddAsset(Asset asset)
         {
-            throw new System.NotImplementedException();
+            _data.Assets.Add(asset);
+            _data.SaveChanges();
         }
 
         public void EditAsset(Asset asset)
         {
-            throw new System.NotImplementedException();
+            _data.Assets.Update(asset);
+            _data.SaveChanges();
         }
 
         public void DeleteAsset(Asset asset)
         {
-            throw new System.NotImplementedException();
+            _data.Assets.Remove(asset);
+            _data.SaveChanges();
         }
 
         public ObservableCollection<Employee> GetEmployees()

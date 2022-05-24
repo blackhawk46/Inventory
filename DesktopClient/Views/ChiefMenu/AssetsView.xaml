@@ -37,7 +37,7 @@
                         ToolTip="Добавить"
                         Foreground="White"
                         Margin="0 0 15 0"
-                        Command="{Binding AddAsset}"
+                        Command="{Binding OpenAddAsset}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center" Cursor="Hand">
                         <Button.Content>
@@ -83,5 +83,20 @@
             </Grid>
         </Border>
 
+        <DataGrid Grid.Row="1" AlternatingRowBackground="LightSlateGray" CellStyle="{StaticResource MaterialDesignDataGridCell}" AutoGenerateColumns="False" EnableRowVirtualization="True" SelectionUnit="FullRow" SelectionMode="Single" SelectedItem="{Binding SelectAsset, Mode=TwoWay}" ItemsSource="{Binding Assets, Mode=TwoWay}" IsReadOnly="True" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding Id}" MinWidth="50" FontSize="16"/>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" MinWidth="100" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Серийный номер" Binding="{Binding SerialNumber}" MinWidth="90" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Инвентарный номер" Binding="{Binding InventoryNumber}" MinWidth="90" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Сотрудник" Binding="{Binding Employee}" MinWidth="90" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status.Name}" MinWidth="90" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Местоположение" Binding="{Binding Place.Name}" MinWidth="90" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Тип" Binding="{Binding AssetType.Name}" MinWidth="90" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Дата закрепления" Binding="{Binding Date}" MinWidth="80" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Дата производства" Binding="{Binding DateCreate}" MinWidth="80" Width="Auto" FontSize="16"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
     </Grid>
 </UserControl>

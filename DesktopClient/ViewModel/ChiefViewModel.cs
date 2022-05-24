@@ -23,6 +23,7 @@ namespace DesktopClient.ViewModel
             Places = _dataService.GetPlaces();
             Statuses = _dataService.GetStatuses();
             Employees = _dataService.GetEmployees();
+            Assets = _dataService.GetAssets();
 
             //Start();
         }
@@ -214,8 +215,45 @@ namespace DesktopClient.ViewModel
                 ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.EmployeeAdd = true;
                 ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Departments = _dataService.GetDepartments();
                 ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.empl = new Employee();
-                //_navigationService.NavigateTo("AddEmp");
             }, nameof(OpenAddEmployee));
+
+            EditEmployee = MakeCommand(async () =>
+            {
+                if(SelectEmployee!=null)
+                {
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.EmployeeEdit = true;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Departments = _dataService.GetDepartments();
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.empl = SelectEmployee;
+                }
+                else
+                {
+                    await _dialogService.ShowMessage("Ошибка", "Выберите сотрудника");
+                }
+            }, nameof(EditEmployee));
+
+            DeleteEmployee = MakeCommand(async () =>
+            {
+                if(SelectEmployee != null)
+                {
+                    MessageDialogResult result = await((MetroWindow)App.Current.MainWindow).ShowMessageAsync("Вы уверены?", "Предупреждение",
+                    MessageDialogStyle.AffirmativeAndNegative,
+                    new MetroDialogSettings
+                    {
+                        AffirmativeButtonText = "Ок",
+                        NegativeButtonText = "Отмена"
+                    });
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        _dataService.DeleteEmployee(SelectEmployee);
+                        Employees = _dataService.GetEmployees();
+                    }
+                }
+            }, nameof(DeleteEmployee));
+
+            OpenAddAsset = MakeCommand(() =>
+            {
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.AssetAdd = true;
+            }, nameof(OpenAddAsset));
 
             GoBack = MakeCommand(() =>
             {
@@ -298,12 +336,6 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
-        public Employee Employee
-        {
-            get => Get<Employee>();
-            set => Set(value);
-        }
-
         #endregion
 
         #region Commands
@@ -317,13 +349,12 @@ namespace DesktopClient.ViewModel
         public ICommand AddStatus { get; set; }
         public ICommand EditStatus { get; set; }
         public ICommand DeleteStatus { get; set; }
-        public ICommand AddAsset { get; set; }
-        public ICommand EditAsset { get; set; }
-        public ICommand DeleteAsset { get; set; }
-        public ICommand AddEmployee { get; set; }
+        public ICommand OpenAddEmployee { get; set; }
         public ICommand EditEmployee { get; set; }
         public ICommand DeleteEmployee { get; set; }
-        public ICommand OpenAddEmployee { get; set; }
+        public ICommand OpenAddAsset { get; set; }
+        public ICommand EditAsset { get; set; }
+        public ICommand DeleteAsset { get; set; }
         public ICommand GoBack { get; set; }
 
         #endregion
