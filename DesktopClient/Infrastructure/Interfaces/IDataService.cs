@@ -29,5 +29,7 @@ namespace DesktopClient.Infrastructure.Interfaces
         void AddEmployee(Employee employee);
         void EditEmployee(Employee employee);
         void DeleteEmployee(Employee employee);
+        ObservableCollection<Transfer> GetTransfers();
+        void AddTransfer(Transfer transfer);
     }
 }

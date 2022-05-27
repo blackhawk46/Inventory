@@ -30,58 +30,20 @@
                         FontSize="20"
                         Foreground="White"
                         Text="Перемещения"/>
-
-                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                    <Button 
-                        Style="{StaticResource MaterialDesignToolButton}"
-                        ToolTip="Добавить"
-                        Foreground="White"
-                        Margin="0 0 15 0"
-                        Command="{Binding}"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center">
-                        <Button.Content>
-                            <iconPacks:PackIconMaterial
-                                VerticalAlignment="Stretch"
-                                HorizontalAlignment="Stretch"
-                                Kind="Plus"/>
-                        </Button.Content>
-                    </Button>
-                    <Button
-                                x:Name="EditButton"
-                                Style="{StaticResource MaterialDesignToolButton}"
-                                ToolTip="Редактировать"
-                                Foreground="White"
-                                Margin="0 0 15 0"
-                                Command="{Binding}"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center">
-                        <Button.Content>
-                            <iconPacks:PackIconMaterial
-                                        VerticalAlignment="Stretch"
-                                        HorizontalAlignment="Stretch"
-                                        Kind="Pencil"/>
-                        </Button.Content>
-                    </Button>
-                    <Button
-                                x:Name="DeleteButton"
-                                Style="{StaticResource MaterialDesignToolButton}"
-                                ToolTip="Удалить"
-                                Foreground="White"
-                                Margin="0 0 15 0"
-                                Command="{Binding}"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center" Cursor="Hand">
-                        <Button.Content>
-                            <iconPacks:PackIconMaterial
-                                        VerticalAlignment="Stretch"
-                                        HorizontalAlignment="Stretch"
-                                        Kind="TrashCan"/>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
+                
             </Grid>
         </Border>
+
+        <DataGrid Grid.Row="1" AlternatingRowBackground="LightSlateGray" CellStyle="{StaticResource MaterialDesignDataGridCell}" AutoGenerateColumns="False" EnableRowVirtualization="True" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource="{Binding Transfers, Mode=TwoWay}" IsReadOnly="True" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding Id}" MinWidth="50" FontSize="16"/>
+                <DataGridTextColumn Header="Имущество(инв.номер)" Binding="{Binding Asset.InventoryNumber}" MinWidth="100" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Старое место" Binding="{Binding PlaceOld.Name}" MinWidth="100" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Новое место" Binding="{Binding PlaceNew.Name}" MinWidth="100" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat=dd-MM-yyyy}" MinWidth="100" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Комментарий" Binding="{Binding Description}" MinWidth="100" Width="Auto" FontSize="16"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </UserControl>

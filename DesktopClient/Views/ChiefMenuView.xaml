@@ -52,7 +52,7 @@
             <controls:HamburgerMenu.ItemsSource>
                 <controls:HamburgerMenuItemCollection>
 
-                    <ctrls:MenuItemControl Label="Инфо панель">
+                    <!--<ctrls:MenuItemControl Label="Инфо панель">
                         <ctrls:MenuItemControl.Content>
                             <chiefmenu:DashboardView/>
                         </ctrls:MenuItemControl.Content>
@@ -62,7 +62,7 @@
                                 Height="24"
                                 Kind="Assessment" />
                         </ctrls:MenuItemControl.Tag>
-                    </ctrls:MenuItemControl>
+                    </ctrls:MenuItemControl>-->
 
                     <ctrls:MenuItemControl Label="Имущество">
                         <ctrls:MenuItemControl.Content>

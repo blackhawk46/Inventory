@@ -26,6 +26,7 @@ namespace DesktopClient.ViewModel
             Employees = _dataService.GetEmployees();
             Assets = _dataService.GetAssets();
             AssetsType = _dataService.GetAssetsType();
+            Transfers = _dataService.GetTransfers();
 
             //Start();
         }
@@ -266,6 +267,24 @@ namespace DesktopClient.ViewModel
                 ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.asst = new Asset() { Date = DateTime.Now, DateCreate = DateTime.Now };
             }, nameof(OpenAddAsset));
 
+            EditAsset = MakeCommand(async () =>
+            {
+                if (SelectAsset != null)
+                {
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.AssetEdit = true;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Places = _dataService.GetPlaces();
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Statuses = _dataService.GetStatuses();
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.AssetTypes = _dataService.GetAssetsType();
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.empls = _dataService.GetEmployees();
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.asst = SelectAsset;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.placetemp = SelectAsset.Place;
+                }
+                else
+                {
+                    await _dialogService.ShowMessage("Ошибка", "Выберите имущество");
+                }
+            }, nameof(EditAsset));
+
             DeleteAsset = MakeCommand(async () =>
             {
                 if (SelectAsset != null)
@@ -441,6 +460,12 @@ namespace DesktopClient.ViewModel
         public Employee SelectEmployee
         {
             get => Get<Employee>();
+            set => Set(value);
+        }
+
+        public ObservableCollection<Transfer> Transfers
+        {
+            get => Get<ObservableCollection<Transfer>>();
             set => Set(value);
         }
 

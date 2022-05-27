@@ -20,6 +20,8 @@ namespace DesktopClient.ViewModel
             _dataService = dataService;
             DateEnd = DateTime.Now;
             SettingsView = "Visible";
+            ServerAddress = "https://84.135.94.126:5001/";
+            DbName = "MainDB";
         }
 
         #region Fields
@@ -38,12 +40,27 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
+        public string ServerAddress
+        {
+            get => Get<string>();
+            set => Set(value);
+        }
+        public string DbName
+        {
+            get => Get<string>();
+            set => Set(value);
+        }
+
         public bool Information
         {
             get => Get(false);
             set => Set(value);
         }
-
+        public bool Settings
+        {
+            get => Get(false);
+            set => Set(value);
+        }
         public bool EmployeeAdd
         {
             get => Get(false);
@@ -59,6 +76,12 @@ namespace DesktopClient.ViewModel
         public Employee empl
         {
             get => Get<Employee>();
+            set => Set(value);
+        }
+
+        public Place placetemp
+        {
+            get => Get<Place>();
             set => Set(value);
         }
 
@@ -123,12 +146,15 @@ namespace DesktopClient.ViewModel
 
         public ICommand AuthorizationCommand { get; set; }
         public ICommand ShowInformation { get; set; }
+        public ICommand ShowSettings { get; set; }
         public ICommand CancelAddEmp { get; set; }
         public ICommand AddEmp { get; set; }
         public ICommand CancelEditEmp { get; set; }
         public ICommand EditEmp { get; set; }
         public ICommand AddAsset { get; set; }
+        public ICommand EditAsset { get; set; }
         public ICommand CancelAddAsset { get; set; }
+        public ICommand CancelEditAsset { get; set; }
 
         #endregion
 
@@ -144,11 +170,15 @@ namespace DesktopClient.ViewModel
             {
                 Information = true;
             }, nameof(ShowInformation));
+            ShowSettings = MakeCommand(() =>
+            {
+                Settings = true;
+            }, nameof(ShowSettings));
             AddEmp = MakeCommand(async () =>
             {
                 if (empl.Department != null && !string.IsNullOrEmpty(empl.FirstName) && !string.IsNullOrEmpty(empl.LastName))
                 {
-                    Employee item = new Employee() { FirstName = empl.FirstName, LastName = empl.LastName, MiddleName = empl.MiddleName, Department = empl.Department};
+                    Employee item = new Employee() { FirstName = empl.FirstName, LastName = empl.LastName, MiddleName = empl.MiddleName, Department = empl.Department };
                     _dataService.AddEmployee(item);
                     EmployeeAdd = false;
                     ((ViewModelLocator)App.Current.Resources["Locator"]).ChiefView.Employees = _dataService.GetEmployees();
@@ -160,6 +190,12 @@ namespace DesktopClient.ViewModel
             {
                 EmployeeAdd = false;
             }, nameof(CancelAddEmp));
+
+            CancelEditEmp = MakeCommand(() =>
+            {
+                EmployeeEdit = false;
+            }, nameof(CancelEditEmp));
+
             EditEmp = MakeCommand(async () =>
             {
                 if (empl != null)
@@ -173,10 +209,21 @@ namespace DesktopClient.ViewModel
             }, nameof(EditEmp));
             AddAsset = MakeCommand(async () =>
             {
-                if(asst.Place!= null && asst.Status!=null && asst.Employee!=null && asst.AssetType!=null && !string.IsNullOrEmpty(asst.Name) && !string.IsNullOrEmpty(asst.InventoryNumber))
+                if (asst.Place != null && asst.Status != null && asst.Employee != null && asst.AssetType != null && !string.IsNullOrEmpty(asst.Name) && !string.IsNullOrEmpty(asst.InventoryNumber))
                 {
-                    Asset item = new Asset() { Name = asst.Name, InventoryNumber = asst.InventoryNumber, SerialNumber = asst.SerialNumber, Status = asst.Status, Employee = asst.Employee,
-                    Place = asst.Place, Date = asst.Date, DateCreate = asst.DateCreate, AssetType = asst.AssetType, Description = asst.Description};
+                    Asset item = new Asset()
+                    {
+                        Name = asst.Name,
+                        InventoryNumber = asst.InventoryNumber,
+                        SerialNumber = asst.SerialNumber,
+                        Status = asst.Status,
+                        Employee = asst.Employee,
+                        Place = asst.Place,
+                        Date = asst.Date,
+                        DateCreate = asst.DateCreate,
+                        AssetType = asst.AssetType,
+                        Description = asst.Description
+                    };
                     _dataService.AddAsset(item);
                     ((ViewModelLocator)App.Current.Resources["Locator"]).ChiefView.Assets = _dataService.GetAssets();
                     AssetAdd = false;
@@ -184,6 +231,27 @@ namespace DesktopClient.ViewModel
                 else
                     await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
             }, nameof(AddAsset));
+            EditAsset = MakeCommand(async () =>
+            {
+                if (asst != null)
+                {                    
+                    if(placetemp!=asst.Place)
+                    {
+                        Transfer transfer = new Transfer() { Asset = asst, Date = DateTime.Now, PlaceOld = placetemp, PlaceNew = asst.Place, Description = asst.Description };
+                        _dataService.AddTransfer(transfer);
+                        ((ViewModelLocator)App.Current.Resources["Locator"]).ChiefView.Transfers = _dataService.GetTransfers();
+                    }
+                    _dataService.EditAsset(asst);
+                    AssetEdit = false;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).ChiefView.Assets = _dataService.GetAssets();
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
+            }, nameof(EditAsset));
+            CancelEditAsset = MakeCommand(() =>
+            {
+                AssetEdit = false;
+            }, nameof(CancelEditAsset));
             CancelAddAsset = MakeCommand(() =>
             {
                 AssetAdd = false;
@@ -204,8 +272,7 @@ namespace DesktopClient.ViewModel
             {
                 if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
                     throw new FormatException();
-                LoginSuccess(login, password);
-                SettingsView = "Hidden";
+                LoginSuccess(login, password);                
             }
             catch (FormatException)
             {
@@ -219,21 +286,25 @@ namespace DesktopClient.ViewModel
 
         private void LoginSuccess(string login, string password)
         {
-            if (login == "1" && password == "1")
+            if (ServerAddress == "https://84.135.94.126:5001/" && DbName == "MainDB")
             {
-                _navigationService.NavigateTo("ChiefView");
+                if (login == "1" && password == "1")
+                {
+                    _navigationService.NavigateTo("ChiefView");
+                }
+                else if (login == "2" && password == "2")
+                {
+                    _navigationService.NavigateTo("EngineerView");
+                }
+                else if (login == "3" && password == "3")
+                {
+                    _navigationService.NavigateTo("EmployeeView");
+                }
+                else
+                    _dialogService.ShowMessage("Неверные параметры", "Проверьте логин и пароль");
+                SettingsView = "Hidden";
             }
-            else if (login == "Инженер" && password == "456")
-            {
-                _navigationService.NavigateTo("EngineerView");
-            }
-            else if (login == "Сотрудник" && password == "789")
-            {
-                _navigationService.NavigateTo("EmployeeView");
-            }
-            else
-                _dialogService.ShowMessage("Неверные параметры", "Проверьте логин и пароль");
-
+            else _dialogService.ShowMessage("Упс...", "Проверьте доступность сервера или бд");
         }
 
         #endregion

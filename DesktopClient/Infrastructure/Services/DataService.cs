@@ -217,5 +217,25 @@ namespace DesktopClient.Infrastructure.Services
             _data.AssetTypes.Remove(assetType);
             _data.SaveChanges();
         }
+
+        public ObservableCollection<Transfer> GetTransfers()
+        {
+            ObservableCollection<Transfer> trnfs = new ObservableCollection<Transfer>();
+
+            List<Transfer> tr = _data.Transfers.ToList();
+
+            for (int i = 0; i < tr.Count; i++)
+            {
+                trnfs.Add(tr[i]);
+            }
+
+            return trnfs;
+        }
+
+        public void AddTransfer(Transfer transfer)
+        {
+            _data.Transfers.Add(transfer);
+            _data.SaveChanges();
+        }
     }
 }

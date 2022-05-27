@@ -11,10 +11,11 @@ namespace Server
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<AssetType> AssetTypes { get; set; }
+        public DbSet<Transfer> Transfers { get; set; }
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
-           // Database.EnsureDeleted();
+            // Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -24,17 +25,18 @@ namespace Server
             Database.EnsureCreated();
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Employee>()
-        //        .HasOne(e => e.Department)
-        //        .WithMany(e => e.Employees)
-        //        .IsRequired();
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+            base.OnModelCreating(modelBuilder);
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=testdb5;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=testdb6;Trusted_Connection=True;");
         }
     }
 }

@@ -78,7 +78,7 @@
                                         HorizontalAlignment="Stretch"
                                         Kind="TrashCan"/>
                         </Button.Content>
-                    </Button>
+                    </Button>                    
                 </StackPanel>
             </Grid>
         </Border>

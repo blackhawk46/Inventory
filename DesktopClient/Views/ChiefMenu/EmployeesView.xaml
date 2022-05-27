@@ -71,7 +71,7 @@
                                 Margin="0 0 15 0"
                                 Command="{Binding DeleteEmployee}"
                                 HorizontalAlignment="Right"
-                                VerticalAlignment="Center">
+                                VerticalAlignment="Center" Cursor="Hand">
                         <Button.Content>
                             <iconPacks:PackIconMaterial
                                         VerticalAlignment="Stretch"
@@ -81,9 +81,7 @@
                     </Button>
                 </StackPanel>
             </Grid>
-        </Border>
-
-        
+        </Border>       
         
         <DataGrid Grid.Row="1" AlternatingRowBackground="LightSlateGray" CellStyle="{StaticResource MaterialDesignDataGridCell}" AutoGenerateColumns="False" EnableRowVirtualization="True" SelectionUnit="FullRow" SelectionMode="Single" SelectedItem="{Binding SelectEmployee, Mode=TwoWay}" ItemsSource="{Binding Employees, Mode=TwoWay}" IsReadOnly="True" >
             <DataGrid.Columns>
