@@ -6,6 +6,7 @@ using Server.Models;
 using GalaSoft.MvvmLight.Views;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System;
 
 namespace DesktopClient.ViewModel
 {
@@ -249,6 +250,10 @@ namespace DesktopClient.ViewModel
                         Employees = _dataService.GetEmployees();
                     }
                 }
+                else
+                {
+                    await _dialogService.ShowMessage("Ошибка", "Выберите сотрудника");
+                }
             }, nameof(DeleteEmployee));
 
             OpenAddAsset = MakeCommand(() =>
@@ -258,7 +263,31 @@ namespace DesktopClient.ViewModel
                 ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Statuses = _dataService.GetStatuses();
                 ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.AssetTypes = _dataService.GetAssetsType();
                 ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.empls = _dataService.GetEmployees();
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.asst = new Asset() { Date = DateTime.Now, DateCreate = DateTime.Now };
             }, nameof(OpenAddAsset));
+
+            DeleteAsset = MakeCommand(async () =>
+            {
+                if (SelectAsset != null)
+                {
+                    MessageDialogResult result = await ((MetroWindow)App.Current.MainWindow).ShowMessageAsync("Вы уверены?", "Предупреждение",
+                    MessageDialogStyle.AffirmativeAndNegative,
+                    new MetroDialogSettings
+                    {
+                        AffirmativeButtonText = "Ок",
+                        NegativeButtonText = "Отмена"
+                    });
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        _dataService.DeleteAsset(SelectAsset);
+                        Assets = _dataService.GetAssets();
+                    }
+                }
+                else
+                {
+                    await _dialogService.ShowMessage("Ошибка", "Выберите имущество");
+                }
+            }, nameof(DeleteAsset));
 
             AddAssetType = MakeCommand(async () =>
             {

@@ -7,7 +7,7 @@ namespace Server.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string SerialNumber { get; set; } 
+        public string? SerialNumber { get; set; } 
         [Required]
         public string InventoryNumber { get; set; }
         [Required]
@@ -20,7 +20,8 @@ namespace Server.Models
         public AssetType AssetType { get; set; }
         [Required]
         public DateTime DateCreate { get; set; }
+        [Required]
         public DateTime Date { get; set; }
-        public string Description { get; set; } 
+        public string? Description { get; set; } 
     }
 }

@@ -338,11 +338,11 @@
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding FirstName}"/>
+                                        <TextBlock Text="{Binding FirstName}" FontSize="18"/>
                                         <TextBlock Text=" "/>
-                                        <TextBlock Text="{Binding LastName}"/>
+                                        <TextBlock Text="{Binding LastName}" FontSize="18"/>
                                         <TextBlock Text=" "/>
-                                        <TextBlock Text="{Binding MiddleName}"/>
+                                        <TextBlock Text="{Binding MiddleName}" FontSize="18"/>
                                     </StackPanel>
                                 </DataTemplate>
                         </ComboBox.ItemTemplate>

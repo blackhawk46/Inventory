@@ -89,12 +89,25 @@
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" MinWidth="100" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Серийный номер" Binding="{Binding SerialNumber}" MinWidth="90" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Инвентарный номер" Binding="{Binding InventoryNumber}" MinWidth="90" Width="Auto" FontSize="16"/>
-                <DataGridTextColumn Header="Сотрудник" Binding="{Binding Employee.Id}" MinWidth="90" Width="Auto" FontSize="16"/>
+                <DataGridTemplateColumn Header="Сотрудник" MinWidth="110" Width="Auto" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Employee.FirstName}" FontSize="16"/>
+                                <TextBlock Text=" "/>
+                                <TextBlock Text="{Binding Employee.LastName}" FontSize="16"/>
+                                <TextBlock Text=" "/>
+                                <TextBlock Text="{Binding Employee.MiddleName}" FontSize="16"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status.Name}" MinWidth="90" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Местоположение" Binding="{Binding Place.Name}" MinWidth="90" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Тип" Binding="{Binding AssetType.Name}" MinWidth="90" Width="Auto" FontSize="16"/>
-                <DataGridTextColumn Header="Дата закрепления" Binding="{Binding Date}" MinWidth="80" Width="Auto" FontSize="16"/>
-                <DataGridTextColumn Header="Дата производства" Binding="{Binding DateCreate}" MinWidth="80" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Дата закрепления" Binding="{Binding Date, StringFormat=dd-MM-yyyy}" MinWidth="80" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Дата производства" Binding="{Binding DateCreate, StringFormat=dd-MM-yyyy}" MinWidth="80" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Комментарий" Binding="{Binding Description}" MinWidth="90" Width="Auto" FontSize="16"/>
             </DataGrid.Columns>
         </DataGrid>
         

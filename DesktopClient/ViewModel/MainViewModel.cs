@@ -171,10 +171,18 @@ namespace DesktopClient.ViewModel
                 else
                     await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
             }, nameof(EditEmp));
-            AddAsset = MakeCommand(() =>
+            AddAsset = MakeCommand(async () =>
             {
-
-                AssetAdd = false;
+                if(asst.Place!= null && asst.Status!=null && asst.Employee!=null && asst.AssetType!=null && !string.IsNullOrEmpty(asst.Name) && !string.IsNullOrEmpty(asst.InventoryNumber))
+                {
+                    Asset item = new Asset() { Name = asst.Name, InventoryNumber = asst.InventoryNumber, SerialNumber = asst.SerialNumber, Status = asst.Status, Employee = asst.Employee,
+                    Place = asst.Place, Date = asst.Date, DateCreate = asst.DateCreate, AssetType = asst.AssetType, Description = asst.Description};
+                    _dataService.AddAsset(item);
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).ChiefView.Assets = _dataService.GetAssets();
+                    AssetAdd = false;
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
             }, nameof(AddAsset));
             CancelAddAsset = MakeCommand(() =>
             {
