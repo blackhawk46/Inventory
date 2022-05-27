@@ -24,6 +24,7 @@ namespace DesktopClient.ViewModel
             Statuses = _dataService.GetStatuses();
             Employees = _dataService.GetEmployees();
             Assets = _dataService.GetAssets();
+            AssetsType = _dataService.GetAssetsType();
 
             //Start();
         }
@@ -253,7 +254,73 @@ namespace DesktopClient.ViewModel
             OpenAddAsset = MakeCommand(() =>
             {
                 ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.AssetAdd = true;
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Places = _dataService.GetPlaces();
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Statuses = _dataService.GetStatuses();
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.AssetTypes = _dataService.GetAssetsType();
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.empls = _dataService.GetEmployees();
             }, nameof(OpenAddAsset));
+
+            AddAssetType = MakeCommand(async () =>
+            {
+                string result = await((MetroWindow)App.Current.MainWindow).ShowInputAsync("Новая запись", "Введите наименование типа",
+                new MetroDialogSettings
+                {
+                    AffirmativeButtonText = "Ок",
+                    NegativeButtonText = "Отмена"
+                });
+                if (!string.IsNullOrEmpty(result))
+                {
+                    _dataService.AddAssetType(new AssetType() { Name = result });
+                    AssetsType = _dataService.GetAssetsType();
+                }
+            }, nameof(AddAssetType));
+
+            EditAssetType = MakeCommand(async () =>
+            {
+                if (SelectAssetType != null)
+                {
+                    string result = await ((MetroWindow)App.Current.MainWindow).ShowInputAsync("Редактирование", "Введите наименование типа",
+                                       new MetroDialogSettings
+                                       {
+                                           AffirmativeButtonText = "Ок",
+                                           NegativeButtonText = "Отмена",
+                                           DefaultText = SelectAssetType.Name
+                                       });
+                    if (result != SelectAssetType.Name && result != null)
+                    {
+                        SelectAssetType.Name = result;
+                        _dataService.EditAssetType(SelectAssetType);
+                        AssetsType = _dataService.GetAssetsType();
+                    }
+                }
+                else
+                {
+                    await _dialogService.ShowMessage("Ошибка", "Выберите тип");
+                }
+            }, nameof(EditAssetType));
+
+            DeleteAssetType = MakeCommand(async () =>
+            {
+                if (SelectAssetType != null)
+                {
+                    MessageDialogResult result = await((MetroWindow)App.Current.MainWindow).ShowMessageAsync("Вы уверены?", "Предупреждение",
+                    MessageDialogStyle.AffirmativeAndNegative,
+                    new MetroDialogSettings
+                    {
+                        AffirmativeButtonText = "Ок",
+                        NegativeButtonText = "Отмена"
+                    });
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        _dataService.DeleteAssetType(SelectAssetType);
+                        AssetsType = _dataService.GetAssetsType();
+                    }
+                }
+                else
+                {
+                    await _dialogService.ShowMessage("Ошибка", "Выберите тип");
+                }
+            }, nameof(DeleteAssetType));
 
             GoBack = MakeCommand(() =>
             {
@@ -324,6 +391,18 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
+        public ObservableCollection<AssetType> AssetsType
+        {
+            get => Get<ObservableCollection<AssetType>>();
+            set => Set(value);
+        }
+
+        public AssetType SelectAssetType
+        {
+            get => Get<AssetType>();
+            set => Set(value);
+        }
+
         public ObservableCollection<Employee> Employees
         {
             get => Get<ObservableCollection<Employee>>();
@@ -349,6 +428,9 @@ namespace DesktopClient.ViewModel
         public ICommand AddStatus { get; set; }
         public ICommand EditStatus { get; set; }
         public ICommand DeleteStatus { get; set; }
+        public ICommand AddAssetType { get; set; }
+        public ICommand EditAssetType { get; set; }
+        public ICommand DeleteAssetType { get; set; }
         public ICommand OpenAddEmployee { get; set; }
         public ICommand EditEmployee { get; set; }
         public ICommand DeleteEmployee { get; set; }

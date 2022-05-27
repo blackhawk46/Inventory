@@ -41,7 +41,7 @@
             </TextBox>
 
             <PasswordBox x:Name="PasswordBox" Grid.Row="2" Margin="12" Width="200" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-                         materialDesign:HintAssist.Hint="Пароль">
+                         materialDesign:HintAssist.Hint="Пароль" Cursor="Arrow">
                 <PasswordBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding AuthorizationCommand}" CommandParameter="{Binding ElementName=PasswordBox}"/>
                 </PasswordBox.InputBindings>

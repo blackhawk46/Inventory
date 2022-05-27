@@ -185,5 +185,37 @@ namespace DesktopClient.Infrastructure.Services
             _data.Employees.Remove(employee);
             _data.SaveChanges();
         }
+
+        public ObservableCollection<AssetType> GetAssetsType()
+        {
+            ObservableCollection<AssetType> assettypes = new ObservableCollection<AssetType>();
+
+            List<AssetType> ast = _data.AssetTypes.ToList();
+
+            for (int i = 0; i < ast.Count; i++)
+            {
+                assettypes.Add(ast[i]);
+            }
+
+            return assettypes;
+        }
+
+        public void AddAssetType(AssetType assetType)
+        {
+            _data.AssetTypes.Add(assetType);
+            _data.SaveChanges();
+        }
+
+        public void EditAssetType(AssetType assetType)
+        {
+            _data.AssetTypes.Update(assetType);
+            _data.SaveChanges();
+        }
+
+        public void DeleteAssetType(AssetType assetType)
+        {
+            _data.AssetTypes.Remove(assetType);
+            _data.SaveChanges();
+        }
     }
 }

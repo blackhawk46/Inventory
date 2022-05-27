@@ -18,6 +18,8 @@ namespace DesktopClient.ViewModel
             _dialogService = dialogService;
             _navigationService = navigationService;
             _dataService = dataService;
+            DateEnd = DateTime.Now;
+            SettingsView = "Visible";
         }
 
         #region Fields
@@ -66,6 +68,30 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
+        public ObservableCollection<AssetType> AssetTypes
+        {
+            get => Get<ObservableCollection<AssetType>>();
+            set => Set(value);
+        }
+
+        public ObservableCollection<Status> Statuses
+        {
+            get => Get<ObservableCollection<Status>>();
+            set => Set(value);
+        }
+
+        public ObservableCollection<Place> Places
+        {
+            get => Get<ObservableCollection<Place>>();
+            set => Set(value);
+        }
+
+        public ObservableCollection<Employee> empls
+        {
+            get => Get<ObservableCollection<Employee>>();
+            set => Set(value);
+        }
+
         public bool AssetAdd
         {
             get => Get(false);
@@ -84,6 +110,13 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
+        public string SettingsView
+        {
+            get => Get<string>();
+            set => Set(value);
+        }
+        public DateTime DateEnd { get; set; }
+
         #endregion
 
         #region Commands
@@ -94,6 +127,8 @@ namespace DesktopClient.ViewModel
         public ICommand AddEmp { get; set; }
         public ICommand CancelEditEmp { get; set; }
         public ICommand EditEmp { get; set; }
+        public ICommand AddAsset { get; set; }
+        public ICommand CancelAddAsset { get; set; }
 
         #endregion
 
@@ -136,10 +171,15 @@ namespace DesktopClient.ViewModel
                 else
                     await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
             }, nameof(EditEmp));
-            CancelEditEmp = MakeCommand(() =>
+            AddAsset = MakeCommand(() =>
             {
-                EmployeeEdit = false;
-            }, nameof(CancelEditEmp));
+
+                AssetAdd = false;
+            }, nameof(AddAsset));
+            CancelAddAsset = MakeCommand(() =>
+            {
+                AssetAdd = false;
+            }, nameof(CancelAddAsset));
         }
 
         private void Authorization(PasswordBox passwordBox)
@@ -157,6 +197,7 @@ namespace DesktopClient.ViewModel
                 if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
                     throw new FormatException();
                 LoginSuccess(login, password);
+                SettingsView = "Hidden";
             }
             catch (FormatException)
             {

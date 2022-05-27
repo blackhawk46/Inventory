@@ -17,6 +17,10 @@ namespace DesktopClient.Infrastructure.Interfaces
         void AddStatus(Status status);
         void EditStatus(Status status);
         void DeleteStatus(Status status);
+        ObservableCollection<AssetType> GetAssetsType();
+        void AddAssetType(AssetType assetType);
+        void EditAssetType(AssetType assetType);
+        void DeleteAssetType(AssetType assetType);
         ObservableCollection<Asset> GetAssets();
         void AddAsset(Asset asset);
         void EditAsset(Asset asset);

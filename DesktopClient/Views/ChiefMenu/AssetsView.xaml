@@ -71,7 +71,7 @@
                                 Margin="0 0 15 0"
                                 Command="{Binding DeleteAsset}"
                                 HorizontalAlignment="Right"
-                                VerticalAlignment="Center" Cursor="Hand">
+                                VerticalAlignment="Center">
                         <Button.Content>
                             <iconPacks:PackIconMaterial
                                         VerticalAlignment="Stretch"
@@ -89,7 +89,7 @@
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" MinWidth="100" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Серийный номер" Binding="{Binding SerialNumber}" MinWidth="90" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Инвентарный номер" Binding="{Binding InventoryNumber}" MinWidth="90" Width="Auto" FontSize="16"/>
-                <DataGridTextColumn Header="Сотрудник" Binding="{Binding Employee}" MinWidth="90" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Сотрудник" Binding="{Binding Employee.Id}" MinWidth="90" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status.Name}" MinWidth="90" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Местоположение" Binding="{Binding Place.Name}" MinWidth="90" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Тип" Binding="{Binding AssetType.Name}" MinWidth="90" Width="Auto" FontSize="16"/>

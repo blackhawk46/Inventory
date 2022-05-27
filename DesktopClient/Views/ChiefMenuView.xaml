@@ -105,10 +105,10 @@
                             <chiefmenu:DepartmentsView/>
                         </ctrls:MenuItemControl.Content>
                         <ctrls:MenuItemControl.Tag>
-                            <iconPacks:PackIconFontAwesome
+                            <iconPacks:PackIconMaterial
                                 Width="24"
                                 Height="24"
-                                Kind="AddressCardSolid" />
+                                Kind="OfficeBuilding" />
                         </ctrls:MenuItemControl.Tag>
                     </ctrls:MenuItemControl>
 
@@ -133,6 +133,18 @@
                                 Width="24"
                                 Height="24"
                                 Kind="LocationRound" />
+                        </ctrls:MenuItemControl.Tag>
+                    </ctrls:MenuItemControl>
+
+                    <ctrls:MenuItemControl Label="Тип имущества">
+                        <ctrls:MenuItemControl.Content>
+                            <chiefmenu:AssetTypeView/>
+                        </ctrls:MenuItemControl.Content>
+                        <ctrls:MenuItemControl.Tag>
+                            <iconPacks:PackIconModern
+                                Width="24"
+                                Height="24"
+                                Kind="BookOpenInformation" />
                         </ctrls:MenuItemControl.Tag>
                     </ctrls:MenuItemControl>
 
