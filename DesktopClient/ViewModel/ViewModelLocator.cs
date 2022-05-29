@@ -17,12 +17,14 @@ namespace DesktopClient.ViewModel
             SimpleIoc.Default.Register<IDataService, DataService>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<ChiefViewModel>();
+            SimpleIoc.Default.Register<EngineerViewModel>();
 
             SetupNavigation();
         }
 
         public MainViewModel MainView => ServiceLocator.Current.GetInstance<MainViewModel>();
         public ChiefViewModel ChiefView => ServiceLocator.Current.GetInstance<ChiefViewModel>();
+        public EngineerViewModel EngineerView => ServiceLocator.Current.GetInstance<EngineerViewModel>();
 
         private static void SetupNavigation()
         {

@@ -112,7 +112,7 @@
             </ListView.View>
         </ListView>-->
 
-        <DataGrid Grid.Row="1" AlternatingRowBackground="LightSlateGray" CellStyle="{StaticResource MaterialDesignDataGridCell}" AutoGenerateColumns="False" EnableRowVirtualization="True" SelectionUnit="FullRow" SelectionMode="Single" SelectedItem="{Binding SelectDepartment, Mode=TwoWay}" ItemsSource="{Binding Departments, Mode=TwoWay}" IsReadOnly="True" >
+        <DataGrid Grid.Row="1" CellStyle="{StaticResource MaterialDesignDataGridCell}" AutoGenerateColumns="False" EnableRowVirtualization="True" SelectionUnit="FullRow" SelectionMode="Single" SelectedItem="{Binding SelectDepartment, Mode=TwoWay}" ItemsSource="{Binding Departments, Mode=TwoWay}" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding Id}" MinWidth="50" FontSize="16"/>
                 <DataGridTextColumn Header="Наименование отдела" Binding="{Binding Name}" MinWidth="240" Width="*" FontSize="16"/>

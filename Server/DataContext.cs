@@ -12,6 +12,9 @@ namespace Server
         public DbSet<Place> Places { get; set; }
         public DbSet<AssetType> AssetTypes { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
+        public DbSet<Detail> Details { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Repair> Repairs { get; set; }
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {

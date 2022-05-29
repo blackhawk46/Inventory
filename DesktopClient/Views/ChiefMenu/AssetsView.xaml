@@ -39,7 +39,7 @@
                         Margin="0 0 15 0"
                         Command="{Binding OpenAddAsset}"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center" Cursor="Hand">
+                        VerticalAlignment="Center">
                         <Button.Content>
                             <iconPacks:PackIconMaterial
                                 VerticalAlignment="Stretch"
@@ -78,12 +78,42 @@
                                         HorizontalAlignment="Stretch"
                                         Kind="TrashCan"/>
                         </Button.Content>
-                    </Button>                    
+                    </Button>
+                    <Button
+                                Style="{StaticResource MaterialDesignToolButton}"
+                                ToolTip="Получить штрих-код"
+                                Foreground="White"
+                                Margin="0 0 15 0"
+                                Command="{Binding GetLabel}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center">
+                        <Button.Content>
+                            <iconPacks:PackIconMaterialDesign
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        Kind="Label"/>
+                        </Button.Content>
+                    </Button>
+                    <Button
+                                Style="{StaticResource MaterialDesignToolButton}"
+                                ToolTip="Выборка по имуществу"
+                                Foreground="White"
+                                Margin="0 0 15 0"
+                                Command="{Binding OpenAssetFilter}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center">
+                        <Button.Content>
+                            <iconPacks:PackIconMaterialDesign
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        Kind="LibraryBooks"/>
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Border>
 
-        <DataGrid Grid.Row="1" AlternatingRowBackground="LightSlateGray" CellStyle="{StaticResource MaterialDesignDataGridCell}" AutoGenerateColumns="False" EnableRowVirtualization="True" SelectionUnit="FullRow" SelectionMode="Single" SelectedItem="{Binding SelectAsset, Mode=TwoWay}" ItemsSource="{Binding Assets, Mode=TwoWay}" IsReadOnly="True" >
+        <DataGrid Grid.Row="1" CellStyle="{StaticResource MaterialDesignDataGridCell}" AutoGenerateColumns="False" EnableRowVirtualization="True" SelectionUnit="FullRow" SelectionMode="Single" SelectedItem="{Binding SelectAsset, Mode=TwoWay}" ItemsSource="{Binding Assets, Mode=TwoWay}" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding Id}" MinWidth="50" FontSize="16"/>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" MinWidth="100" Width="Auto" FontSize="16"/>

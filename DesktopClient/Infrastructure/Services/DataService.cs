@@ -237,5 +237,65 @@ namespace DesktopClient.Infrastructure.Services
             _data.Transfers.Add(transfer);
             _data.SaveChanges();
         }
+
+        public ObservableCollection<Detail> GetDetails()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AddDetail(Detail detail)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EditDetail(Detail detail)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteDetail(Detail detail)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ObservableCollection<Service> GetServices()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AddService(Service service)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EditService(Service service)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteService(Service service)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ObservableCollection<Repair> GetRepairs()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AddRepair(Repair repair)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EditRepair(Repair repair)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteRepair(Repair repair)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

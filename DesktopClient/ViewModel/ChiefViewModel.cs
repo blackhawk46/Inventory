@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Views;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
+using Microsoft.Office.Interop.Word;
 
 namespace DesktopClient.ViewModel
 {
@@ -374,6 +375,36 @@ namespace DesktopClient.ViewModel
             {
                 _navigationService.GoBack();
             }, nameof(GoBack));
+
+            OpenAssetFilter = MakeCommand(() =>
+            {
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.AssetFilter = true;
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Places = _dataService.GetPlaces();
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Statuses = _dataService.GetStatuses();
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.AssetTypes = _dataService.GetAssetsType();
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.empls = _dataService.GetEmployees();
+            }, nameof(OpenAssetFilter));
+
+            GetLabel = MakeCommand(async () =>
+            {
+                try
+                {
+                    //System.Diagnostics.Process doc = new System.Diagnostics.Process();
+                    //doc.StartInfo.FileName = "winword.exe";
+                    //doc.StartInfo.Arguments = @"C:\Test\Test.docx";
+                    //doc.Start();
+
+                    //Application ap = new Application();
+                    //Document doc = ap.Documents.Open(@"C:\Test\Test.docx");
+                    //doc.Activate();
+                    //ap.Visible = true;
+                }
+                catch (Exception e)
+                {
+
+                    await _dialogService.ShowMessage("Ошибка", e.Message);
+                }
+            }, nameof(GetLabel));
         }
 
         //public async Task Start()
@@ -492,6 +523,8 @@ namespace DesktopClient.ViewModel
         public ICommand EditAsset { get; set; }
         public ICommand DeleteAsset { get; set; }
         public ICommand GoBack { get; set; }
+        public ICommand GetLabel { get; set; }
+        public ICommand OpenAssetFilter { get; set; }
 
         #endregion
     }

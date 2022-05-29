@@ -120,6 +120,11 @@ namespace DesktopClient.ViewModel
             get => Get(false);
             set => Set(value);
         }
+        public bool AssetFilter
+        {
+            get => Get(false);
+            set => Set(value);
+        }
 
         public bool AssetEdit
         {
@@ -155,6 +160,7 @@ namespace DesktopClient.ViewModel
         public ICommand EditAsset { get; set; }
         public ICommand CancelAddAsset { get; set; }
         public ICommand CancelEditAsset { get; set; }
+        public ICommand CancelFilterAsset { get; set; }
 
         #endregion
 
@@ -256,6 +262,10 @@ namespace DesktopClient.ViewModel
             {
                 AssetAdd = false;
             }, nameof(CancelAddAsset));
+            CancelFilterAsset = MakeCommand(() =>
+            {
+                AssetFilter = false;
+            }, nameof(CancelFilterAsset));
         }
 
         private void Authorization(PasswordBox passwordBox)

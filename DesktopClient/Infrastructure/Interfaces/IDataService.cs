@@ -31,5 +31,17 @@ namespace DesktopClient.Infrastructure.Interfaces
         void DeleteEmployee(Employee employee);
         ObservableCollection<Transfer> GetTransfers();
         void AddTransfer(Transfer transfer);
+        ObservableCollection<Detail> GetDetails();
+        void AddDetail(Detail detail);
+        void EditDetail(Detail detail);
+        void DeleteDetail(Detail detail);
+        ObservableCollection<Service> GetServices();
+        void AddService(Service service);
+        void EditService(Service service);
+        void DeleteService(Service service);
+        ObservableCollection<Repair> GetRepairs();
+        void AddRepair(Repair repair);
+        void EditRepair(Repair repair);
+        void DeleteRepair(Repair repair);
     }
 }

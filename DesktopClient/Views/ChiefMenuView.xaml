@@ -148,7 +148,7 @@
                         </ctrls:MenuItemControl.Tag>
                     </ctrls:MenuItemControl>
 
-                    <ctrls:MenuItemControl Label="Отчёты">
+                    <!--<ctrls:MenuItemControl Label="Отчёты">
                         <ctrls:MenuItemControl.Content>
                             <chiefmenu:ReportsView/>
                         </ctrls:MenuItemControl.Content>
@@ -158,7 +158,7 @@
                                 Height="24"
                                 Kind="LibraryBooks"/>
                         </ctrls:MenuItemControl.Tag>
-                    </ctrls:MenuItemControl>
+                    </ctrls:MenuItemControl>-->
 
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.ItemsSource>

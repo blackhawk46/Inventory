@@ -646,6 +646,137 @@
 
             </mah:Flyout>
 
+            <mah:Flyout
+                Header="Выборка"
+                FontFamily="Times New Roman" 
+                FontStyle="Italic"
+                IsModal="True"
+                Width="350"
+                Position="Right"
+                Theme="Adapt"
+                IsOpen="{Binding AssetFilter}">
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+                        <TextBlock Text="Тип:" Margin="12 6" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+
+                        <ComboBox ItemsSource="{Binding AssetTypes}" Margin="12 6" Style="{StaticResource MaterialDesignComboBox}"
+                         FontSize="16" VerticalContentAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Width="300">
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+
+                        </ComboBox>
+
+                        <TextBlock Text="Сотрудник:" Margin="12 6" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+
+                        <ComboBox ItemsSource="{Binding empls}" Margin="12 6" Style="{StaticResource MaterialDesignComboBox}"
+                         FontSize="16" VerticalContentAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Width="300">
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding FirstName}" FontSize="18"/>
+                                        <TextBlock Text=" "/>
+                                        <TextBlock Text="{Binding LastName}" FontSize="18"/>
+                                        <TextBlock Text=" "/>
+                                        <TextBlock Text="{Binding MiddleName}" FontSize="18"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+
+                        </ComboBox>
+
+                        <TextBlock Text="Статус:" Margin="12 6" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+
+                        <ComboBox ItemsSource="{Binding Statuses}" Margin="12 6" Style="{StaticResource MaterialDesignComboBox}"
+                         FontSize="16" VerticalContentAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Width="300">
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+
+                        </ComboBox>
+
+                        <TextBlock Text="Место:" Margin="12 6" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+
+                        <ComboBox ItemsSource="{Binding Places}" Margin="12 6" Style="{StaticResource MaterialDesignComboBox}" SelectedItem="{Binding asst.Place, Mode=TwoWay}"
+                         FontSize="16" VerticalContentAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Width="300">
+
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+
+                        </ComboBox>
+
+                        <TextBlock Text="Дата закрепления:" Margin="12 6" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+
+                        <DatePicker SelectedDate="{Binding asst.Date}" DisplayDateEnd="{Binding DateEnd, Mode=OneWay}" IsTodayHighlighted="True" Margin="12 6" FontSize="18" Width="300" Style="{StaticResource MaterialDesignDatePicker}"/>
+
+                        <TextBlock Text="Дата производства:" Margin="12 6" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+
+                        <DatePicker SelectedDate="{Binding asst.DateCreate}" DisplayDateEnd="{Binding DateEnd, Mode=OneWay}" IsTodayHighlighted="True" Margin="12 6" FontSize="18" Width="300" Style="{StaticResource MaterialDesignDatePicker}"/>
+
+                        <StackPanel Margin="12 6" Orientation="Horizontal">
+
+                            <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock VerticalAlignment="Center" FontSize="18">
+                                            Выгрузить
+                                        </TextBlock>
+                                        <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Upload"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding CancelFilterAsset}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock VerticalAlignment="Center" FontSize="16">
+                                        Отмена
+                                        </TextBlock>
+                                        <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Cancel"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </ScrollViewer>
+
+            </mah:Flyout>
+
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
 
