@@ -62,8 +62,30 @@
                                 Kind="WrenchSolid" />
                         </ctrls:MenuItemControl.Tag>
                     </ctrls:MenuItemControl>
-                    
-                    
+
+                    <ctrls:MenuItemControl Label="Услуги">
+                        <ctrls:MenuItemControl.Content>
+                            <engineermenu:ServiceView/>
+                        </ctrls:MenuItemControl.Content>
+                        <ctrls:MenuItemControl.Tag>
+                            <iconPacks:PackIconFontAwesome
+                                Width="24"
+                                Height="24"
+                                Kind="HandHoldingSolid" />
+                        </ctrls:MenuItemControl.Tag>
+                    </ctrls:MenuItemControl>
+
+                    <ctrls:MenuItemControl Label="Детали">
+                        <ctrls:MenuItemControl.Content>
+                            <engineermenu:DetailView/>
+                        </ctrls:MenuItemControl.Content>
+                        <ctrls:MenuItemControl.Tag>
+                            <iconPacks:PackIconFontAwesome
+                                Width="24"
+                                Height="24"
+                                Kind="CogSolid" />
+                        </ctrls:MenuItemControl.Tag>
+                    </ctrls:MenuItemControl>
 
                 </controls:HamburgerMenuItemCollection>
             </controls:HamburgerMenu.ItemsSource>

@@ -1,6 +1,8 @@
 ﻿using DesktopClient.Infrastructure.Interfaces;
 using DesktopClient.Views;
 using GalaSoft.MvvmLight.Views;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Server.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -11,8 +13,82 @@ namespace DesktopClient.ViewModel
     {
         public EngineerViewModel(IDialogService dialogService, IDataService dataService)
         {
+            InitCommands();
+
             _dataService = dataService;
             _dialogService = dialogService;
+
+            Details = _dataService.GetDetails();
+            Services = _dataService.GetServices();
+        }
+
+        private void InitCommands()
+        {
+            AddDetail = MakeCommand(() =>
+            {
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.DetailAdd = true;
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.det = new Detail();
+            }, nameof(AddDetail));
+            EditDetail = MakeCommand(() =>
+            {
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.DetailEdit = true;
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.det = SelectDetail;
+            }, nameof(EditDetail));
+            DeleteDetail = MakeCommand(async () =>
+            {
+                if (SelectDetail != null)
+                {
+                    MessageDialogResult result = await((MetroWindow)App.Current.MainWindow).ShowMessageAsync("Вы уверены?", "Предупреждение",
+                    MessageDialogStyle.AffirmativeAndNegative,
+                    new MetroDialogSettings
+                    {
+                        AffirmativeButtonText = "Ок",
+                        NegativeButtonText = "Отмена"
+                    });
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        _dataService.DeleteDetail(SelectDetail);
+                        Details = _dataService.GetDetails();
+                    }
+                }
+                else
+                {
+                    await _dialogService.ShowMessage("Ошибка", "Выберите деталь");
+                }
+            }, nameof(DeleteDetail));
+
+            AddService = MakeCommand(() =>
+            {
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.ServiceAdd = true;
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.ser = new Service();
+            }, nameof(AddService));
+            EditService = MakeCommand(() =>
+            {
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.ServiceEdit = true;
+                ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.ser = SelectService;
+            }, nameof(EditService));
+            DeleteService = MakeCommand(async () =>
+            {
+                if (SelectService != null)
+                {
+                    MessageDialogResult result = await ((MetroWindow)App.Current.MainWindow).ShowMessageAsync("Вы уверены?", "Предупреждение",
+                    MessageDialogStyle.AffirmativeAndNegative,
+                    new MetroDialogSettings
+                    {
+                        AffirmativeButtonText = "Ок",
+                        NegativeButtonText = "Отмена"
+                    });
+                    if (result == MessageDialogResult.Affirmative)
+                    {
+                        _dataService.DeleteService(SelectService);
+                        Services = _dataService.GetServices();
+                    }
+                }
+                else
+                {
+                    await _dialogService.ShowMessage("Ошибка", "Выберите услугу");
+                }
+            }, nameof(DeleteService));
         }
 
         #region Fields

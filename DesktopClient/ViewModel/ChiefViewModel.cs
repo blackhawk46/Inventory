@@ -8,6 +8,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using Microsoft.Office.Interop.Word;
+using System.Diagnostics;
 
 namespace DesktopClient.ViewModel
 {
@@ -30,6 +31,11 @@ namespace DesktopClient.ViewModel
             Transfers = _dataService.GetTransfers();
 
             //Start();
+        }
+
+        public void GoStart()
+        {
+            _navigationService.GoBack();
         }
 
         private void InitCommands()
@@ -389,15 +395,12 @@ namespace DesktopClient.ViewModel
             {
                 try
                 {
-                    //System.Diagnostics.Process doc = new System.Diagnostics.Process();
-                    //doc.StartInfo.FileName = "winword.exe";
-                    //doc.StartInfo.Arguments = @"C:\Test\Test.docx";
-                    //doc.Start();
-
-                    //Application ap = new Application();
-                    //Document doc = ap.Documents.Open(@"C:\Test\Test.docx");
-                    //doc.Activate();
-                    //ap.Visible = true;
+                    var p = new Process();
+                    p.StartInfo = new ProcessStartInfo(@"C:\Dip\ShtrihKod.docx")
+                    {
+                        UseShellExecute = true
+                    };
+                    p.Start();
                 }
                 catch (Exception e)
                 {
@@ -405,6 +408,28 @@ namespace DesktopClient.ViewModel
                     await _dialogService.ShowMessage("Ошибка", e.Message);
                 }
             }, nameof(GetLabel));
+
+            OpenAct = MakeCommand(async () =>
+            {
+                try
+                {
+                    var p = new Process();
+                    p.StartInfo = new ProcessStartInfo(@"C:\Dip\Act.docx")
+                    {
+                        UseShellExecute = true
+                    };
+                    p.Start();
+                }
+                catch (Exception e)
+                {
+
+                    await _dialogService.ShowMessage("Ошибка", e.Message);
+                }
+            }, nameof(OpenAct));
+            GoRepair = MakeCommand(async () =>
+            {
+
+            }, nameof(GoRepair));
         }
 
         //public async Task Start()
@@ -525,6 +550,8 @@ namespace DesktopClient.ViewModel
         public ICommand GoBack { get; set; }
         public ICommand GetLabel { get; set; }
         public ICommand OpenAssetFilter { get; set; }
+        public ICommand OpenAct { get; set; }
+        public ICommand GoRepair { get; set; }
 
         #endregion
     }

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Views;
 using Server.Models;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace DesktopClient.ViewModel
 {
@@ -78,7 +79,16 @@ namespace DesktopClient.ViewModel
             get => Get<Employee>();
             set => Set(value);
         }
-
+        public Detail det
+        {
+            get => Get<Detail>();
+            set => Set(value);
+        }
+        public Service ser
+        {
+            get => Get<Service>();
+            set => Set(value);
+        }
         public Place placetemp
         {
             get => Get<Place>();
@@ -132,6 +142,30 @@ namespace DesktopClient.ViewModel
             set => Set(value);
         }
 
+        public bool DetailAdd
+        {
+            get => Get(false);
+            set => Set(value);
+        }
+
+        public bool ServiceAdd
+        {
+            get => Get(false);
+            set => Set(value);
+        }
+
+        public bool DetailEdit
+        {
+            get => Get(false);
+            set => Set(value);
+        }
+
+        public bool ServiceEdit
+        {
+            get => Get(false);
+            set => Set(value);
+        }
+
         public Asset asst
         {
             get => Get<Asset>();
@@ -158,10 +192,18 @@ namespace DesktopClient.ViewModel
         public ICommand EditEmp { get; set; }
         public ICommand AddAsset { get; set; }
         public ICommand EditAsset { get; set; }
+        public ICommand UploadAsset { get; set; }
         public ICommand CancelAddAsset { get; set; }
         public ICommand CancelEditAsset { get; set; }
         public ICommand CancelFilterAsset { get; set; }
-
+        public ICommand CancelAddDetail { get; set; }
+        public ICommand AddDetail { get; set; }
+        public ICommand EditDetail { get; set; }
+        public ICommand CancelEditDetail { get; set; }
+        public ICommand CancelAddService { get; set; }
+        public ICommand AddService { get; set; }
+        public ICommand EditService { get; set; }
+        public ICommand CancelEditService { get; set; }
         #endregion
 
         #region Commands
@@ -266,6 +308,85 @@ namespace DesktopClient.ViewModel
             {
                 AssetFilter = false;
             }, nameof(CancelFilterAsset));
+            UploadAsset = MakeCommand(async () =>
+            {
+                try
+                {
+                    var p = new Process();
+                    p.StartInfo = new ProcessStartInfo(@"C:\Dip\Imuchestvo.docx")
+                    {
+                        UseShellExecute = true
+                    };
+                    p.Start();
+                    AssetFilter = false;
+                }
+                catch (Exception e)
+                {
+                    await _dialogService.ShowMessage("Ошибка", e.Message);
+                }
+            }, nameof(UploadAsset));
+            AddDetail = MakeCommand(async() =>
+            {
+                if (!string.IsNullOrEmpty(det.Name))
+                {
+                    Detail item = new Detail() { Name = det.Name, Price = det.Price };
+                    _dataService.AddDetail(item);
+                    DetailAdd = false;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).EngineerView.Details = _dataService.GetDetails();
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
+            }, nameof(AddDetail));
+            CancelAddDetail = MakeCommand(() =>
+            {
+                DetailAdd = false;
+            }, nameof(CancelAddDetail));
+            EditDetail = MakeCommand(async () =>
+            {
+                if (det != null)
+                {
+                    _dataService.EditDetail(det);
+                    DetailEdit = false;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).EngineerView.Details = _dataService.GetDetails();
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
+            }, nameof(EditDetail));
+            AddService = MakeCommand(async () =>
+            {
+                if (!string.IsNullOrEmpty(ser.Name))
+                {
+                    Service item = new Service() { Name = ser.Name, Price = ser.Price };
+                    _dataService.AddService(item);
+                    ServiceAdd = false;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).EngineerView.Services = _dataService.GetServices();
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
+            }, nameof(AddService));
+            CancelAddService = MakeCommand(() =>
+            {
+                ServiceAdd = false;
+            }, nameof(CancelAddService));
+            EditService = MakeCommand(async () =>
+            {
+                if (ser != null)
+                {
+                    _dataService.EditService(ser);
+                    ServiceEdit = false;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).EngineerView.Services = _dataService.GetServices();
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Заполните обязательные поля");
+            }, nameof(EditService));
+            CancelEditDetail = MakeCommand(() =>
+            {
+                DetailEdit = false;
+            }, nameof(CancelEditDetail));
+            CancelEditService = MakeCommand(() =>
+            {
+                ServiceEdit = false;
+            }, nameof(CancelEditService));
         }
 
         private void Authorization(PasswordBox passwordBox)

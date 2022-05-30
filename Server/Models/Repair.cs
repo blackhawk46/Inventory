@@ -14,6 +14,7 @@ namespace Server.Models
         public string Name { get; set; }
         public List<Detail> Details { get; set; } = new();
         public List<Service> Services { get; set; } = new();
+        public Double? TotalPrice { get; set; }
         public string? Description { get; set; } 
     }
 }

@@ -86,12 +86,27 @@
                                 Margin="0 0 15 0"
                                 Command="{Binding GetLabel}"
                                 HorizontalAlignment="Right"
-                                VerticalAlignment="Center">
+                                VerticalAlignment="Center" Cursor="Hand">
                         <Button.Content>
                             <iconPacks:PackIconMaterialDesign
                                         VerticalAlignment="Stretch"
                                         HorizontalAlignment="Stretch"
                                         Kind="Label"/>
+                        </Button.Content>
+                    </Button>
+                    <Button
+                                Style="{StaticResource MaterialDesignToolButton}"
+                                ToolTip="Открыть АКТ"
+                                Foreground="White"
+                                Margin="0 0 15 0"
+                                Command="{Binding OpenAct}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center">
+                        <Button.Content>
+                            <iconPacks:PackIconFontAwesome
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        Kind="FileAltSolid"/>
                         </Button.Content>
                     </Button>
                     <Button
@@ -107,6 +122,21 @@
                                         VerticalAlignment="Stretch"
                                         HorizontalAlignment="Stretch"
                                         Kind="LibraryBooks"/>
+                        </Button.Content>
+                    </Button>
+                    <Button
+                                Style="{StaticResource MaterialDesignToolButton}"
+                                ToolTip="В ремонт"
+                                Foreground="White"
+                                Margin="0 0 15 0"
+                                Command="{Binding GoRepair}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center">
+                        <Button.Content>
+                            <iconPacks:PackIconFontAwesome
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        Kind="WrenchSolid"/>
                         </Button.Content>
                     </Button>
                 </StackPanel>

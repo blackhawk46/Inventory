@@ -81,7 +81,7 @@
                         FontStyle="Oblique"
                         Foreground="LightSeaGreen"
                         Style="{StaticResource MaterialDesignBody1TextBlock}">
-                        8(3012)44-06-08
+                        89836340827
                         </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
@@ -737,7 +737,7 @@
                         <StackPanel Margin="12 6" Orientation="Horizontal">
 
                             <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
-                                Command="{Binding}">
+                                Command="{Binding UploadAsset}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock VerticalAlignment="Center" FontSize="18">
@@ -773,10 +773,294 @@
 
                     </StackPanel>
 
-                </ScrollViewer>
+                </ScrollViewer>                
+                
+            </mah:Flyout>
+
+            <mah:Flyout
+                Header="Добавить деталь"
+                FontFamily="Times New Roman" 
+                FontStyle="Italic"
+                IsModal="True"
+                Width="350"
+                Position="Right"
+                Theme="Adapt"
+                IsOpen="{Binding DetailAdd}">
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding det.Name, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Наименование"/>
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding det.Price, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Цена"/>
+
+                    <StackPanel Margin="12 18 0 0" Orientation="Horizontal">
+
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding AddDetail}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="18">
+                                        Добавить
+                                        <LineBreak/>
+                                        деталь
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Plus"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding CancelAddDetail}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="16">
+                                        Отмена
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Cancel"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                    </StackPanel>
+
+                </StackPanel>
 
             </mah:Flyout>
 
+            <mah:Flyout
+                Header="Редактировать деталь"
+                FontFamily="Times New Roman" 
+                FontStyle="Italic"
+                IsModal="True"
+                Width="350"
+                Position="Right"
+                Theme="Adapt"
+                IsOpen="{Binding DetailEdit}">
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding det.Name, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Наименование"/>
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding det.Price, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Цена"/>
+
+                    <StackPanel Margin="12 18 0 0" Orientation="Horizontal">
+
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding EditDetail}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="18">
+                                        Изменить
+                                        <LineBreak/>
+                                        деталь
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Pencil"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding CancelEditDetail}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="16">
+                                        Отмена
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Cancel"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </mah:Flyout>
+
+            <mah:Flyout
+                Header="Добавить услугу"
+                FontFamily="Times New Roman" 
+                FontStyle="Italic"
+                IsModal="True"
+                Width="350"
+                Position="Right"
+                Theme="Adapt"
+                IsOpen="{Binding ServiceAdd}">
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding ser.Name, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Наименование"/>
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding ser.Price, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Цена"/>
+
+                    <StackPanel Margin="12 18 0 0" Orientation="Horizontal">
+
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding AddService}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="18">
+                                        Добавить
+                                        <LineBreak/>
+                                        услугу
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Plus"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding CancelAddService}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="16">
+                                        Отмена
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Cancel"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </mah:Flyout>
+
+            <mah:Flyout
+                Header="Редактировать услугу"
+                FontFamily="Times New Roman" 
+                FontStyle="Italic"
+                IsModal="True"
+                Width="350"
+                Position="Right"
+                Theme="Adapt"
+                IsOpen="{Binding ServiceEdit}">
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding ser.Name, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Наименование"/>
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding ser.Price, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Цена"/>
+
+                    <StackPanel Margin="12 18 0 0" Orientation="Horizontal">
+
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding EditService}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="18">
+                                        Изменить
+                                        <LineBreak/>
+                                        услугу
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Pencil"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding CancelEditService}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="16">
+                                        Отмена
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Cancel"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </mah:Flyout>  
+            
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
 

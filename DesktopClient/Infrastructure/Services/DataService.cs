@@ -240,62 +240,98 @@ namespace DesktopClient.Infrastructure.Services
 
         public ObservableCollection<Detail> GetDetails()
         {
-            throw new System.NotImplementedException();
+            ObservableCollection<Detail> dtls = new ObservableCollection<Detail>();
+
+            List<Detail> dt = _data.Details.ToList();
+
+            for (int i = 0; i < dt.Count; i++)
+            {
+                dtls.Add(dt[i]);
+            }
+
+            return dtls;
         }
 
         public void AddDetail(Detail detail)
         {
-            throw new System.NotImplementedException();
+            _data.Details.Add(detail);
+            _data.SaveChanges();
         }
 
         public void EditDetail(Detail detail)
         {
-            throw new System.NotImplementedException();
+            _data.Details.Update(detail);
+            _data.SaveChanges();
         }
 
         public void DeleteDetail(Detail detail)
         {
-            throw new System.NotImplementedException();
+            _data.Details.Remove(detail);
+            _data.SaveChanges();
         }
 
         public ObservableCollection<Service> GetServices()
         {
-            throw new System.NotImplementedException();
+            ObservableCollection<Service> srvs = new ObservableCollection<Service>();
+
+            List<Service> sv = _data.Services.ToList();
+
+            for (int i = 0; i < sv.Count; i++)
+            {
+                srvs.Add(sv[i]);
+            }
+
+            return srvs;
         }
 
         public void AddService(Service service)
         {
-            throw new System.NotImplementedException();
+            _data.Services.Add(service);
+            _data.SaveChanges();
         }
 
         public void EditService(Service service)
         {
-            throw new System.NotImplementedException();
+            _data.Services.Update(service);
+            _data.SaveChanges();
         }
 
         public void DeleteService(Service service)
         {
-            throw new System.NotImplementedException();
+            _data.Services.Remove(service);
+            _data.SaveChanges();
         }
 
         public ObservableCollection<Repair> GetRepairs()
         {
-            throw new System.NotImplementedException();
+            ObservableCollection<Repair> rps = new ObservableCollection<Repair>();
+
+            List<Repair> rp = _data.Repairs.ToList();
+
+            for (int i = 0; i < rp.Count; i++)
+            {
+                rps.Add(rp[i]);
+            }
+
+            return rps;
         }
 
         public void AddRepair(Repair repair)
         {
-            throw new System.NotImplementedException();
+            _data.Repairs.Add(repair);
+            _data.SaveChanges();
         }
 
         public void EditRepair(Repair repair)
         {
-            throw new System.NotImplementedException();
+            _data.Repairs.Update(repair);
+            _data.SaveChanges();
         }
 
         public void DeleteRepair(Repair repair)
         {
-            throw new System.NotImplementedException();
+            _data.Repairs.Remove(repair);
+            _data.SaveChanges();
         }
     }
 }
