@@ -94,6 +94,11 @@ namespace DesktopClient.ViewModel
             get => Get<Place>();
             set => Set(value);
         }
+        public Repair rep
+        {
+            get => Get<Repair>();
+            set => Set(value);
+        }
 
         public ObservableCollection<Department> Departments
         {
@@ -405,7 +410,12 @@ namespace DesktopClient.ViewModel
             }, nameof(CancelEditService));
             GoRepair = MakeCommand(() =>
             {
-                
+                Repair item = new Repair() { Name = rep.Name, DateBegin = rep.DateBegin, DateEnd = DateTime.Now,
+                    Description = rep.Description, Detail = rep.Detail, Service = rep.Service, TotalPrice = rep.Detail.Price + rep.Service.Price};
+                _dataService.EditRepair(item);
+                //rep.Asset.Status.Name = "Налажено";
+                //_dataService.EditAsset(rep.Asset);
+                ((ViewModelLocator)App.Current.Resources["Locator"]).EngineerView.Repairs = _dataService.GetRepairs();
                 RepairDo = false;
             }, nameof(GoRepair));
             CancelGoRepair = MakeCommand(() =>

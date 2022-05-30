@@ -440,7 +440,7 @@ namespace DesktopClient.ViewModel
                     {
                         SelectAsset.Status.Name = "В ремонте";
                         _dataService.EditAsset(SelectAsset);
-                        _dataService.AddRepair(new Repair() { Name = result, Asset = SelectAsset, DateBegin = DateTime.Now });
+                        _dataService.AddRepair(new Repair() { Name = result, Imu = Assets[0], DateBegin = DateTime.Now });
                         Assets = _dataService.GetAssets();
                     }
                 }

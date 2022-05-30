@@ -6,7 +6,7 @@ namespace Server.Models
     {
         public int Id { get; set; }
         [Required]
-        public Asset Asset { get; set; }
+        public Asset? Imu { get; set; }
         [Required]
         public DateTime DateBegin   { get; set; }   
         public DateTime? DateEnd { get; set; }
@@ -15,6 +15,6 @@ namespace Server.Models
         public Detail? Detail { get; set; }
         public Service? Service { get; set; }
         public Double? TotalPrice { get; set; }
-        public string? Description { get; set; } 
+        public string? Description { get; set; }
     }
 }

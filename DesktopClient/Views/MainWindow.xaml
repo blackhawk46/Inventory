@@ -1075,7 +1075,7 @@
 
                     <TextBlock Text="Деталь:" Margin="12 12 0 0" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
 
-                    <ComboBox ItemsSource="{Binding Details}" Margin="12" Style="{StaticResource MaterialDesignComboBox}" SelectedItem="{Binding det.Name, Mode=TwoWay}"
+                    <ComboBox ItemsSource="{Binding Details}" Margin="12" Style="{StaticResource MaterialDesignComboBox}" SelectedItem="{Binding rep.Detail, Mode=TwoWay}"
                          FontSize="16" VerticalContentAlignment="Center"
                          HorizontalAlignment="Center"
                          Width="300">
@@ -1089,7 +1089,7 @@
 
                     <TextBlock Text="Услуга:" Margin="12 12 0 0" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
                     
-                    <ComboBox ItemsSource="{Binding Services}" Margin="12" Style="{StaticResource MaterialDesignComboBox}" SelectedItem="{Binding ser.Name, Mode=TwoWay}"
+                    <ComboBox ItemsSource="{Binding Services}" Margin="12" Style="{StaticResource MaterialDesignComboBox}" SelectedItem="{Binding rep.Service, Mode=TwoWay}"
                          FontSize="16" VerticalContentAlignment="Center"
                          HorizontalAlignment="Center"
                          Width="300">
@@ -1101,6 +1101,14 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="12"
+                         FontSize="18"
+                         Width="300"
+                         Text="{Binding rep.Description, Mode=TwoWay}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         materialDesign:HintAssist.Hint="Комментарий"/>
+
                     <StackPanel Margin="12 18 0 0" Orientation="Horizontal">
 
                         <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
@@ -1108,7 +1116,7 @@
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock VerticalAlignment="Center" FontSize="18">
-                                        Отремонтировать
+                                        Чинить
                                     </TextBlock>
                                     <iconPacks:PackIconFontAwesome Margin="6 0 0 0"
                                                                 Width="28"

@@ -96,6 +96,9 @@ namespace DesktopClient.ViewModel
                 if (SelectRepair != null)
                 {
                     ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.RepairDo = true;
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Details = _dataService.GetDetails();
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Services = _dataService.GetServices();
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.rep = SelectRepair;
                 }
                 else
                     await _dialogService.ShowMessage("Ошибка", "Выберите имущество");
