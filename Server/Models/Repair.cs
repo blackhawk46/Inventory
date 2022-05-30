@@ -12,8 +12,8 @@ namespace Server.Models
         public DateTime? DateEnd { get; set; }
         [Required]
         public string Name { get; set; }
-        public List<Detail> Details { get; set; } = new();
-        public List<Service> Services { get; set; } = new();
+        public Detail? Detail { get; set; }
+        public Service? Service { get; set; }
         public Double? TotalPrice { get; set; }
         public string? Description { get; set; } 
     }

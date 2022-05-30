@@ -46,7 +46,7 @@ namespace DesktopClient.ViewModel
                 new MetroDialogSettings
                 {
                     AffirmativeButtonText = "Ок",
-                    NegativeButtonText = "Отмена"                    
+                    NegativeButtonText = "Отмена"
                 });
                 if (!string.IsNullOrEmpty(result))
                 {
@@ -229,7 +229,7 @@ namespace DesktopClient.ViewModel
 
             EditEmployee = MakeCommand(async () =>
             {
-                if(SelectEmployee!=null)
+                if (SelectEmployee != null)
                 {
                     ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.EmployeeEdit = true;
                     ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.Departments = _dataService.GetDepartments();
@@ -243,9 +243,9 @@ namespace DesktopClient.ViewModel
 
             DeleteEmployee = MakeCommand(async () =>
             {
-                if(SelectEmployee != null)
+                if (SelectEmployee != null)
                 {
-                    MessageDialogResult result = await((MetroWindow)App.Current.MainWindow).ShowMessageAsync("Вы уверены?", "Предупреждение",
+                    MessageDialogResult result = await ((MetroWindow)App.Current.MainWindow).ShowMessageAsync("Вы уверены?", "Предупреждение",
                     MessageDialogStyle.AffirmativeAndNegative,
                     new MetroDialogSettings
                     {
@@ -317,7 +317,7 @@ namespace DesktopClient.ViewModel
 
             AddAssetType = MakeCommand(async () =>
             {
-                string result = await((MetroWindow)App.Current.MainWindow).ShowInputAsync("Новая запись", "Введите наименование типа",
+                string result = await ((MetroWindow)App.Current.MainWindow).ShowInputAsync("Новая запись", "Введите наименование типа",
                 new MetroDialogSettings
                 {
                     AffirmativeButtonText = "Ок",
@@ -358,7 +358,7 @@ namespace DesktopClient.ViewModel
             {
                 if (SelectAssetType != null)
                 {
-                    MessageDialogResult result = await((MetroWindow)App.Current.MainWindow).ShowMessageAsync("Вы уверены?", "Предупреждение",
+                    MessageDialogResult result = await ((MetroWindow)App.Current.MainWindow).ShowMessageAsync("Вы уверены?", "Предупреждение",
                     MessageDialogStyle.AffirmativeAndNegative,
                     new MetroDialogSettings
                     {
@@ -414,7 +414,7 @@ namespace DesktopClient.ViewModel
                 try
                 {
                     var p = new Process();
-                    p.StartInfo = new ProcessStartInfo(@"C:\Dip\Act.docx")
+                    p.StartInfo = new ProcessStartInfo(@"C:\Dip\Act.xlsx")
                     {
                         UseShellExecute = true
                     };
@@ -428,7 +428,24 @@ namespace DesktopClient.ViewModel
             }, nameof(OpenAct));
             GoRepair = MakeCommand(async () =>
             {
-
+                if (SelectAsset != null)
+                {
+                    string result = await ((MetroWindow)App.Current.MainWindow).ShowInputAsync("Новая запись", "Введите название",
+                    new MetroDialogSettings
+                    {
+                        AffirmativeButtonText = "Ок",
+                        NegativeButtonText = "Отмена"
+                    });
+                    if (!string.IsNullOrEmpty(result))
+                    {
+                        SelectAsset.Status.Name = "В ремонте";
+                        _dataService.EditAsset(SelectAsset);
+                        _dataService.AddRepair(new Repair() { Name = result, Asset = SelectAsset, DateBegin = DateTime.Now });
+                        Assets = _dataService.GetAssets();
+                    }
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Выберите имущество");
             }, nameof(GoRepair));
         }
 

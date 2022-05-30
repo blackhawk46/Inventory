@@ -773,8 +773,8 @@
 
                     </StackPanel>
 
-                </ScrollViewer>                
-                
+                </ScrollViewer>
+
             </mah:Flyout>
 
             <mah:Flyout
@@ -1059,8 +1059,89 @@
 
                 </StackPanel>
 
-            </mah:Flyout>  
-            
+            </mah:Flyout>
+
+            <mah:Flyout
+                Header="Ремонт"
+                FontFamily="Times New Roman" 
+                FontStyle="Italic"
+                IsModal="True"
+                Width="350"
+                Position="Right"
+                Theme="Adapt"
+                IsOpen="{Binding RepairDo}">
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+                    <TextBlock Text="Деталь:" Margin="12 12 0 0" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+
+                    <ComboBox ItemsSource="{Binding Details}" Margin="12" Style="{StaticResource MaterialDesignComboBox}" SelectedItem="{Binding det.Name, Mode=TwoWay}"
+                         FontSize="16" VerticalContentAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Width="300">
+
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock Text="Услуга:" Margin="12 12 0 0" FontSize="18" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                    
+                    <ComboBox ItemsSource="{Binding Services}" Margin="12" Style="{StaticResource MaterialDesignComboBox}" SelectedItem="{Binding ser.Name, Mode=TwoWay}"
+                         FontSize="16" VerticalContentAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Width="300">
+
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <StackPanel Margin="12 18 0 0" Orientation="Horizontal">
+
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding GoRepair}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="18">
+                                        Отремонтировать
+                                    </TextBlock>
+                                    <iconPacks:PackIconFontAwesome Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="WrenchSolid"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="155" Height="50" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding CancelGoRepair}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" FontSize="16">
+                                        Отмена
+                                    </TextBlock>
+                                    <iconPacks:PackIconMaterial Margin="6 0 0 0"
+                                                                Width="28"
+                                                                VerticalContentAlignment="Center"
+                                                                HorizontalContentAlignment="Center"
+                                                                Height="28"
+                                                                Kind="Cancel"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </mah:Flyout>
+
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
 

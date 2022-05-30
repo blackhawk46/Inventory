@@ -20,6 +20,7 @@ namespace DesktopClient.ViewModel
 
             Details = _dataService.GetDetails();
             Services = _dataService.GetServices();
+            Repairs = _dataService.GetRepairs();
         }
 
         private void InitCommands()
@@ -89,6 +90,16 @@ namespace DesktopClient.ViewModel
                     await _dialogService.ShowMessage("Ошибка", "Выберите услугу");
                 }
             }, nameof(DeleteService));
+
+            DoRepair = MakeCommand(async () =>
+            {
+                if (SelectRepair != null)
+                {
+                    ((ViewModelLocator)App.Current.Resources["Locator"]).MainView.RepairDo = true;
+                }
+                else
+                    await _dialogService.ShowMessage("Ошибка", "Выберите имущество");
+            }, nameof(DoRepair));
         }
 
         #region Fields
@@ -146,9 +157,7 @@ namespace DesktopClient.ViewModel
         public ICommand AddService { get; set; }
         public ICommand EditService { get; set; }
         public ICommand DeleteService { get; set; }
-        public ICommand AddRepair { get; set; }
-        public ICommand EditRepair{ get; set; }
-        public ICommand DeleteRepair { get; set; }
+        public ICommand DoRepair { get; set; }
 
         #endregion
     }

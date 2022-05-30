@@ -124,6 +124,16 @@ namespace DesktopClient.ViewModel
             get => Get<ObservableCollection<Employee>>();
             set => Set(value);
         }
+        public ObservableCollection<Detail> Details
+        {
+            get => Get<ObservableCollection<Detail>>();
+            set => Set(value);
+        }
+        public ObservableCollection<Service> Services
+        {
+            get => Get<ObservableCollection<Service>>();
+            set => Set(value);
+        }
 
         public bool AssetAdd
         {
@@ -147,7 +157,11 @@ namespace DesktopClient.ViewModel
             get => Get(false);
             set => Set(value);
         }
-
+        public bool RepairDo
+        {
+            get => Get(false);
+            set => Set(value);
+        }
         public bool ServiceAdd
         {
             get => Get(false);
@@ -204,6 +218,8 @@ namespace DesktopClient.ViewModel
         public ICommand AddService { get; set; }
         public ICommand EditService { get; set; }
         public ICommand CancelEditService { get; set; }
+        public ICommand GoRepair { get; set; }
+        public ICommand CancelGoRepair { get; set; }
         #endregion
 
         #region Commands
@@ -387,6 +403,15 @@ namespace DesktopClient.ViewModel
             {
                 ServiceEdit = false;
             }, nameof(CancelEditService));
+            GoRepair = MakeCommand(() =>
+            {
+                
+                RepairDo = false;
+            }, nameof(GoRepair));
+            CancelGoRepair = MakeCommand(() =>
+            {
+                RepairDo = false;
+            }, nameof(CancelGoRepair));
         }
 
         private void Authorization(PasswordBox passwordBox)

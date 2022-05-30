@@ -68,10 +68,10 @@
                             <engineermenu:ServiceView/>
                         </ctrls:MenuItemControl.Content>
                         <ctrls:MenuItemControl.Tag>
-                            <iconPacks:PackIconFontAwesome
+                            <iconPacks:PackIconMaterial
                                 Width="24"
                                 Height="24"
-                                Kind="HandHoldingSolid" />
+                                Kind="HandExtendedOutline" />
                         </ctrls:MenuItemControl.Tag>
                     </ctrls:MenuItemControl>
 
