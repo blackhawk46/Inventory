@@ -63,6 +63,18 @@
                         </ctrls:MenuItemControl.Tag>
                     </ctrls:MenuItemControl>
 
+                    <ctrls:MenuItemControl Label="Журнал">
+                        <ctrls:MenuItemControl.Content>
+                            <engineermenu:RepairHistoryView/>
+                        </ctrls:MenuItemControl.Content>
+                        <ctrls:MenuItemControl.Tag>
+                            <iconPacks:PackIconFontAwesome
+                                Width="24"
+                                Height="24"
+                                Kind="BookSolid" />
+                        </ctrls:MenuItemControl.Tag>
+                    </ctrls:MenuItemControl>
+
                     <ctrls:MenuItemControl Label="Услуги">
                         <ctrls:MenuItemControl.Content>
                             <engineermenu:ServiceView/>

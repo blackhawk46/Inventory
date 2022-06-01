@@ -426,6 +426,7 @@ namespace DesktopClient.ViewModel
                     await _dialogService.ShowMessage("Ошибка", e.Message);
                 }
             }, nameof(OpenAct));
+
             GoRepair = MakeCommand(async () =>
             {
                 if (SelectAsset != null)
@@ -438,10 +439,10 @@ namespace DesktopClient.ViewModel
                     });
                     if (!string.IsNullOrEmpty(result))
                     {
-                        SelectAsset.Status.Name = "В ремонте";
-                        _dataService.EditAsset(SelectAsset);
-                        _dataService.AddRepair(new Repair() { Name = result, Imu = Assets[0], DateBegin = DateTime.Now });
-                        Assets = _dataService.GetAssets();
+                        //SelectAsset.Status.Name = "В ремонте";
+                        //_dataService.EditAsset(SelectAsset);
+                        _dataService.AddRepair(new Repair() { Name = result, DateBegin = DateTime.Now, Asset = SelectAsset });
+                        //Assets = _dataService.GetAssets();
                     }
                 }
                 else

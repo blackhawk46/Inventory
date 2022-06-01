@@ -83,10 +83,19 @@
             </Grid>
         </Border>
 
-        <DataGrid Grid.Row="1" CellStyle="{StaticResource MaterialDesignDataGridCell}" AutoGenerateColumns="False" EnableRowVirtualization="True" SelectionUnit="FullRow" SelectionMode="Single" SelectedItem="{Binding SelectRepair, Mode=TwoWay}" ItemsSource="{Binding Repairs, Mode=TwoWay}" IsReadOnly="True" >
+        <DataGrid Grid.Row="1" CellStyle="{StaticResource MaterialDesignDataGridCell}" AutoGenerateColumns="False" EnableRowVirtualization="True" SelectionUnit="FullRow" SelectionMode="Single" SelectedItem="{Binding SelectRepair, Mode=TwoWay}" ItemsSource="{Binding Repairs, Mode=OneWay}" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding Id}" MinWidth="50" FontSize="16"/>
-                <DataGridTextColumn Header="Имущество(инв.номер)" Binding="{Binding Imu.InventoryNumber}" MinWidth="100" Width="Auto" FontSize="16"/>
+                <DataGridTextColumn Header="Имущество(инв.номер)" Binding="{Binding Asset.InventoryNumber}" MinWidth="100" Width="Auto" FontSize="16"/>
+                <DataGridTemplateColumn Header="Сотрудник" MinWidth="110" Width="Auto" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Asset.InventoryNumber}" FontSize="16"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}" MinWidth="100" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Дата начала" Binding="{Binding DateBegin, StringFormat=dd-MM-yyyy}" MinWidth="80" Width="Auto" FontSize="16"/>
                 <DataGridTextColumn Header="Дата конца" Binding="{Binding DateEnd, StringFormat=dd-MM-yyyy}" MinWidth="80" Width="Auto" FontSize="16"/>

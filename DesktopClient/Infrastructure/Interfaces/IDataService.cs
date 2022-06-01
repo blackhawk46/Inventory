@@ -43,5 +43,7 @@ namespace DesktopClient.Infrastructure.Interfaces
         void AddRepair(Repair repair);
         void EditRepair(Repair repair);
         void DeleteRepair(Repair repair);
+        ObservableCollection<RepairHistory> GetRepairHistory();
+        void AddRepairHistory(RepairHistory repairHistory);
     }
 }

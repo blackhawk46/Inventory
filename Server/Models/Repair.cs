@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.Models
 {
     public class Repair
     {
         public int Id { get; set; }
-        [Required]
-        public Asset? Imu { get; set; }
-        [Required]
+        public int AssetId { get; set; }
+        [ForeignKey("AssetId")]
+        public Asset? Asset { get; set; }
         public DateTime DateBegin   { get; set; }   
         public DateTime? DateEnd { get; set; }
-        [Required]
         public string Name { get; set; }
         public Detail? Detail { get; set; }
         public Service? Service { get; set; }

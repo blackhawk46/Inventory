@@ -21,6 +21,7 @@ namespace DesktopClient.ViewModel
             Details = _dataService.GetDetails();
             Services = _dataService.GetServices();
             Repairs = _dataService.GetRepairs();
+            RepairHistory = _dataService.GetRepairHistory();
         }
 
         private void InitCommands()
@@ -141,6 +142,12 @@ namespace DesktopClient.ViewModel
         public ObservableCollection<Repair> Repairs
         {
             get => Get<ObservableCollection<Repair>>();
+            set => Set(value);
+        }
+
+        public ObservableCollection<RepairHistory> RepairHistory
+        {
+            get => Get<ObservableCollection<RepairHistory>>();
             set => Set(value);
         }
 

@@ -333,5 +333,24 @@ namespace DesktopClient.Infrastructure.Services
             _data.Repairs.Remove(repair);
             _data.SaveChanges();
         }
+
+        public ObservableCollection<RepairHistory> GetRepairHistory()
+        {
+            ObservableCollection<RepairHistory> rps = new ObservableCollection<RepairHistory>();
+
+            List<RepairHistory> rp = _data.RepairHistory.ToList();
+
+            for (int i = 0; i < rp.Count; i++)
+            {
+                rps.Add(rp[i]);
+            }
+
+            return rps;
+        }
+
+        public void AddRepairHistory(RepairHistory repairHistory)
+        {
+            _data.RepairHistory.Add(repairHistory);
+        }
     }
 }

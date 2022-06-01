@@ -15,6 +15,7 @@ namespace Server
         public DbSet<Detail> Details { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Repair> Repairs { get; set; }
+        public DbSet<RepairHistory> RepairHistory { get; set; }
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
@@ -39,7 +40,7 @@ namespace Server
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=testdb14;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=testdb25;Trusted_Connection=True;");
         }
     }
 }
